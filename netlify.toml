@@ -1,4 +1,4 @@
 [build]
 base = "frontend"
 publish = "frontend/dist/"
-command = "yarn build:frontend"
+command = "yarn build"

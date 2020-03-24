@@ -1,0 +1,15 @@
+{
+  "name": "jira_clone",
+  "version": "1.0.0",
+  "author": "Bouaggad Moez",
+  "license": "MIT",
+  "scripts": {
+    "install-deps": "yarn install && cd backend && yarn install && cd ../frontend && yarn install",
+    "start:front": "cd frontend && yarn start",
+    "build:front": "cd frontend && yarn build",
+    "start:back": "cd backend && yarn start",
+    "build:back": "cd backend && yarn build",
+    "build": "yarn build:front && yarn build:back",
+    "start": "yarn start:front && yarn start:back"
+  }
+}

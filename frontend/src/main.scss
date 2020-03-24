@@ -1,0 +1,109 @@
+@import './fonts.scss';
+@import './assets/css/tailwind.css';
+@import '~toastify-js/src/toastify.css';
+
+$vt-font-family: 'CircularStd', sans-serif !default;
+
+.Vue-Toastification__toast {
+  font-family: 'CircularStd', sans-serif !important;
+  pointer-events: auto;
+}
+
+.Vue-Toastification__toast--success {
+  background-color: #0b875b !important;
+}
+
+.Vue-Toastification__toast--error {
+  background-color: #e13c3c !important;
+}
+.Vue-Toastification__toast--default {
+  background-color: #0052cc !important;
+}
+
+:root {
+  --microtip-transition-duration: 0.1s;
+  --microtip-font-size: 14px;
+}
+
+[role~='tooltip'][data-microtip-position='right']::after {
+  margin-left: 20px !important;
+}
+
+[role~='tooltip'][data-microtip-position='right']::before {
+  margin-left: 14px;
+}
+
+body {
+  line-height: 1.2;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+#app-frame {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+#content {
+  flex: 1;
+  min-width: 0;
+  z-index: 0;
+  overflow: auto;
+}
+
+.page {
+  min-width: 800px;
+}
+
+[aria-label][role~='tooltip']::before,
+[aria-label][role~='tooltip']::after {
+  z-index: 100000 !important;
+  font-family: 'CircularStd' sans-serif !important;
+}
+
+button,
+body,
+textarea,
+input {
+  font-family: 'CircularStd', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif, 'CircularStd';
+}
+svg {
+  outline: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin both infinite 0.7s;
+}
+
+.fadeIn {
+  animation: fadeIn 0.2s both;
+}

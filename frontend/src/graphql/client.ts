@@ -5,7 +5,10 @@ import { setContext } from 'apollo-link-context'
 import { getStoredAuthToken } from '@/utils/authToken'
 
 const httpLink = createHttpLink({
-  uri: 'http://ec2-35-180-196-42.eu-west-3.compute.amazonaws.com:5000/graphql'
+  uri:
+    process.env.NODE_ENV == 'production'
+      ? window.origin + '/api'
+      : 'http://localhost:5000/graphql'
 })
 
 const authLink = setContext((_, { headers }) => {

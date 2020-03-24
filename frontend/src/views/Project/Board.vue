@@ -19,7 +19,6 @@ import Lists from '@/components/Project/Lists/Lists.vue'
 import { Filters } from '@/types/filters'
 import { mutations, getters } from '@/store'
 export default defineComponent({
-  name: 'home',
   components: {
     appFilters,
     Lists

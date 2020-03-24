@@ -23,3 +23,5 @@ export const ProjectCategoryCopy = {
   [ProjectCategory.MARKETING]: 'Marketing',
   [ProjectCategory.BUSINESS]: 'Business'
 }
+
+export default Project

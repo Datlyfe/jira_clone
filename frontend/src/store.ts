@@ -1,8 +1,6 @@
 import Vue from 'vue'
-import { Filters } from '@/types/filters'
-import { Project } from '@/types/project'
 import { getStoredAuthToken } from '@/utils/authToken'
-import { User } from './types/user'
+import { Filters, Project, User } from '@/types'
 
 const store = Vue.observable({
   currentUser: {} as User,

@@ -15,6 +15,14 @@
       >
       <j-button @click="triggerIssueDelete" icon="trash" variant="empty" />
       <j-button
+        v-if="withFullScreenButton"
+        @click="goFullScreen"
+        icon="expand"
+        :iconSize="24"
+        variant="empty"
+      />
+      <j-button
+        v-if="withCloseButton"
         @click="$emit('close')"
         icon="times"
         :iconSize="24"
@@ -135,9 +143,17 @@ export default defineComponent({
     issueId: {
       type: [String, Number],
       required: true
+    },
+    withCloseButton: {
+      type: Boolean,
+      default: true
+    },
+    withFullScreenButton: {
+      type: Boolean,
+      default: true
     }
   },
-  setup(props, { root }) {
+  setup(props, { root, emit }) {
     const issueCopy = ref<Issue>(null)
     const project = computed(getters.project)
     const currentUser = computed(getters.currentUser)
@@ -173,6 +189,14 @@ export default defineComponent({
         }).href
 
       await setClipboard(path)
+    }
+
+    const goFullScreen = () => {
+      root.$router.push({
+        name: 'issue',
+        params: { issueId: `${props.issueId}` }
+      })
+      emit('close')
     }
 
     const { mutate: mutateIssue } = useMutation<{
@@ -258,6 +282,7 @@ export default defineComponent({
       issueCopy,
       handleUpdateIssue,
       copyIssueLink,
+      goFullScreen,
       triggerIssueDelete,
       triggeCommentDelete,
       commentsSorted,

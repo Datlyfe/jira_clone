@@ -71,3 +71,5 @@ export const IssueTypeCopy = {
   [IssueType.BUG]: 'Bug',
   [IssueType.STORY]: 'Story'
 }
+
+export default Issue

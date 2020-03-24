@@ -13,3 +13,5 @@ export interface User {
   project: Project
   projectId: number
 }
+
+export default User

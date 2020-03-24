@@ -11,3 +11,5 @@ export interface Comment {
   user: User
   issue: Issue
 }
+
+export default Comment

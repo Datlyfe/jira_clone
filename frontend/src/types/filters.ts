@@ -4,3 +4,5 @@ export interface Filters {
   myOnly: boolean
   recent: boolean
 }
+
+export default Filters

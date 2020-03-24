@@ -3,7 +3,6 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import store from '@/store'
 import { authenticate } from '@/auth/authenticate'
 import { fetchMe } from '@/graphql/queries/auth'
-import IssueDetails from '@/components/Project/Issue/IssueDetails/IssueDetails.vue'
 
 Vue.use(VueRouter)
 
@@ -36,7 +35,7 @@ const routes: RouteConfig[] = [
       {
         path: 'issue/:issueId',
         name: 'issue',
-        component: IssueDetails,
+        component: loadView('Project/FullIIssueDetails'),
         props: true
       }
     ]

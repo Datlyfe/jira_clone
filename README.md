@@ -1,6 +1,6 @@
 # A Jira clone built with Vuejs & Nodejs/Graphql
 
-## <a href="https://jira-clone.netlify.com/" target="_blank">Visit the live app</a>
+## <a href="https://jira-clone.netlify.com/" target="_blank">Live Demo</a>
 
 ![App screenshot](https://i.ibb.co/bvFPbwk/Screenshot-2020-03-24-Jira-Clone.png)
 
@@ -25,11 +25,16 @@ I belive that this project will be a great example for Vuejs developers in the f
 ## Author: Bouaggad Moez ✍️
 
 Email : mrbouaggadmoez@gmail.com
+
 Website : https://bouaggadmoez.netlify.com/
 
 ## Contributing
 
 I think the state of the project is good as it is right now feature wise and i will only be fixing bugs if they come up so it you want to contribute in doing so you are very welcome.
+
+## Credits
+
+Insprited by <a href="https://github.com/oldboyxx/jira_clone" target="_blank">oldboyxx/jira_clone</a>
 
 ## License
 

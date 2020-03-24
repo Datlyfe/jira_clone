@@ -1,6 +1,6 @@
 # A Jira clone built with Vuejs & Nodejs/Graphql
 
-## [Visit the live app](https://jira-clone.netlify.com/)
+## <a href="https://jira-clone.netlify.com/" target="_blank">Visit the live app</a>
 
 ![App screenshot](https://i.ibb.co/bvFPbwk/Screenshot-2020-03-24-Jira-Clone.png)
 

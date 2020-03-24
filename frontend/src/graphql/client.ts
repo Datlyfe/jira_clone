@@ -5,10 +5,7 @@ import { setContext } from 'apollo-link-context'
 import { getStoredAuthToken } from '@/utils/authToken'
 
 const httpLink = createHttpLink({
-  uri:
-    process.env.NODE_ENV == 'production'
-      ? window.origin + '/api/'
-      : 'http://localhost:5000/graphql'
+  uri: 'https://jira-clone-api.xyz/'
 })
 
 const authLink = setContext((_, { headers }) => {

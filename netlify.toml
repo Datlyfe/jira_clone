@@ -4,5 +4,6 @@ publish = "dist/"
 command = "yarn build"
 
 [[redirects]]
-from = "/api/*"
-to = "http://ec2-35-180-196-42.eu-west-3.compute.amazonaws.com:5000/graphql/:splat 200!"
+from = "/*"
+to = "/index.html"
+status = 200

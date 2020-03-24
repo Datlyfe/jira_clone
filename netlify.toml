@@ -5,4 +5,4 @@ command = "yarn build"
 
 [[redirects]]
 from = "/api/*"
-to = "http://ec2-35-180-196-42.eu-west-3.compute.amazonaws.com:5000/graphql"
+to = "http://ec2-35-180-196-42.eu-west-3.compute.amazonaws.com:5000/graphql/:splat 200!"

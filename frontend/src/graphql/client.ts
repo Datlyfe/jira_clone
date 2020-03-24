@@ -7,7 +7,7 @@ import { getStoredAuthToken } from '@/utils/authToken'
 const httpLink = createHttpLink({
   uri:
     process.env.NODE_ENV == 'production'
-      ? window.origin + '/api'
+      ? window.origin + '/api/'
       : 'http://localhost:5000/graphql'
 })
 

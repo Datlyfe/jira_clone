@@ -7,5 +7,6 @@ declare namespace NodeJS {
     DB_DATABASE: string;
     DB_TEST_DATABASE: string;
     JWT_SECRET: string;
+    NODE_ENV: string;
   }
 }

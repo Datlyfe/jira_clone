@@ -61,7 +61,8 @@ router.beforeEach(async (to, _, next) => {
       } catch (error) {
         if (
           error.message ===
-          'GraphQL error: Authentication token is invalid: User not found.'
+            'GraphQL error: Authentication token is invalid: User not found.' ||
+          error.message === 'GraphQL error: Authentication token is invalid.'
         ) {
           await authenticate()
           next({ name: to.name || 'root' })

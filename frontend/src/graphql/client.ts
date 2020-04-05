@@ -8,7 +8,7 @@ const httpLink = createHttpLink({
   uri:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:5000/graphql'
-      : 'https://jira-clone-api.xyz/graphql'
+      : 'https://jira-clone-api.herokuapp.com/'
 })
 
 const authLink = setContext((_, { headers }) => {

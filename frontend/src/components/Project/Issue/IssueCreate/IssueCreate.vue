@@ -173,7 +173,7 @@
           variant="primary"
           >Create</j-button
         >
-        <j-button @click.prevent="xd" class="ml-3" variant="secondary"
+        <j-button @click.prevent="$emit('close')" class="ml-3" variant="secondary"
           >Cancel</j-button
         >
       </div>
@@ -292,15 +292,8 @@ export default defineComponent({
       }
     }
 
-    const xd = () => {
-      successToast('Issue has been successfully created').showToast()
-      errorToast('An error has occured').showToast()
-      emit('close')
-    }
-
     return {
       issueCreateObject,
-      xd,
       projectUsers,
       IssueType,
       isValidDTO,

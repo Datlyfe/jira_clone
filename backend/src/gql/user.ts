@@ -19,6 +19,7 @@ class UserResolver {
   hello(): string {
     return "hello World";
   }
+  @Query(() => String)
   sentry(): string {
     throw "sentry graphql error test";
     return "Sentry";

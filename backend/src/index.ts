@@ -35,6 +35,7 @@ const initExpressGraphql = async () => {
   app.use(Express.urlencoded({ extended: true }));
 
   app.get("/", (_, res) => {
+    myUndefinedFunction();
     res.json({ server: "jira-pi" });
   });
 

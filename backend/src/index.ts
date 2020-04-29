@@ -35,7 +35,7 @@ const initExpressGraphql = async () => {
   app.use(Express.urlencoded({ extended: true }));
 
   app.get("/", (_, res) => {
-    myUndefinedFunction();
+    throw('a sentry error test')
     res.json({ server: "jira-pi" });
   });
 

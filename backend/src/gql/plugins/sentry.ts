@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/node";
 import { ApolloServerPlugin } from "apollo-server-plugin-base";
 import { GQLContext } from "@/types/context";
-export const apolloServerSentryPlugin = {
+export const apolloServerSentryPlugin:ApolloServerPlugin = {
   requestDidStart() {
     return {
       didEncounterErrors(rc) {
@@ -31,4 +31,4 @@ export const apolloServerSentryPlugin = {
       },
     };
   },
-} as ApolloServerPlugin;
+};

@@ -40,7 +40,7 @@ const initExpressGraphql = async () => {
     context: ({ req, res }: any) => ({ req, res }),
     playground: true,
     introspection: true,
-    plugins: [apolloServerSentryPlugin],
+    plugins: [apolloServerSentryPlugin as any],
   });
 
   const app = Express();

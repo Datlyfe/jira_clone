@@ -19,6 +19,10 @@ class UserResolver {
   hello(): string {
     return "hello World";
   }
+  sentry(): string {
+    throw "sentry graphql error test";
+    return "Sentry";
+  }
 
   @UseMiddleware([IsAuth, ErrorInterceptor])
   @Query(() => User)

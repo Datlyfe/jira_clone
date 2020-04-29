@@ -2,6 +2,7 @@ require("module-alias").addAlias("@", __dirname);
 import "dotenv/config";
 import "reflect-metadata";
 import * as Sentry from "@sentry/node";
+import { RewriteFrames } from "@sentry/integrations";
 import Express from "express";
 import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
@@ -9,6 +10,17 @@ import { buildSchema } from "type-graphql";
 import { GraphQLSchema } from "graphql";
 import createDatabaseConnection from "@/database/createConnection";
 import { RESOLVERS } from "@/gql";
+import { apolloServerSentryPlugin } from "@/gql/plugins/sentry";
+
+Sentry.init({
+  environment: process.env.APP_ENV,
+  dsn: process.env.SENTRY_DSN,
+  integrations: [
+    new RewriteFrames({
+      root: process.cwd(),
+    }) as any,
+  ],
+});
 
 const establishDatabaseConnection = async (): Promise<void> => {
   try {
@@ -26,20 +38,25 @@ const initExpressGraphql = async () => {
   const apolloServer = new ApolloServer({
     schema: schema as GraphQLSchema,
     context: ({ req, res }: any) => ({ req, res }),
+    playground: true,
     introspection: true,
+    plugins: [apolloServerSentryPlugin],
   });
 
   const app = Express();
+
+  app.use(Sentry.Handlers.requestHandler());
 
   app.use(cors());
   app.use(Express.urlencoded({ extended: true }));
 
   app.get("/", (_, res) => {
-    throw('a sentry error test')
+    throw "a sentry express error test";
     res.json({ server: "jira-pi" });
   });
 
   apolloServer.applyMiddleware({ app });
+  app.use(Sentry.Handlers.errorHandler());
   app.listen(process.env.PORT || 5000, () => {
     console.log(
       `server started on http://localhost:5000${apolloServer.graphqlPath}`
@@ -50,9 +67,6 @@ const initExpressGraphql = async () => {
 const bootstrap = async (): Promise<void> => {
   await establishDatabaseConnection();
   initExpressGraphql();
-  if (process.env.NODE_ENV === "production") {
-    Sentry.init({ dsn: process.env.SENTRY_DSN });
-  }
 };
 
 bootstrap();

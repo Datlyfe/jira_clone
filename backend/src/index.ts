@@ -1,6 +1,7 @@
 require("module-alias").addAlias("@", __dirname);
 import "dotenv/config";
 import "reflect-metadata";
+import * as Sentry from "@sentry/node";
 import Express from "express";
 import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
@@ -19,13 +20,13 @@ const establishDatabaseConnection = async (): Promise<void> => {
 
 const initExpressGraphql = async () => {
   const schema = await buildSchema({
-    resolvers: RESOLVERS
-  }).catch(err => console.log(err));
+    resolvers: RESOLVERS,
+  }).catch((err) => console.log(err));
 
   const apolloServer = new ApolloServer({
     schema: schema as GraphQLSchema,
     context: ({ req, res }: any) => ({ req, res }),
-    introspection: true
+    introspection: true,
   });
 
   const app = Express();
@@ -48,6 +49,9 @@ const initExpressGraphql = async () => {
 const bootstrap = async (): Promise<void> => {
   await establishDatabaseConnection();
   initExpressGraphql();
+  if (process.env.NODE_ENV === "production") {
+    Sentry.init({ dsn: process.env.SENTRY_DSN });
+  }
 };
 
 bootstrap();

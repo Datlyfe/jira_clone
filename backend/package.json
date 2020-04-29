@@ -13,6 +13,7 @@
     "test": "jest --setupFiles dotenv/config"
   },
   "dependencies": {
+    "@sentry/node": "5.15.5",
     "apollo-server-express": "^2.10.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

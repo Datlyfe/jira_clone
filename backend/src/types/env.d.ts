@@ -8,5 +8,6 @@ declare namespace NodeJS {
     DB_TEST_DATABASE: string;
     JWT_SECRET: string;
     NODE_ENV: string;
+    SENTRY_DSN: string;
   }
 }

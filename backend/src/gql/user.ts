@@ -4,7 +4,7 @@ import {
   UseMiddleware,
   Ctx,
   Mutation,
-  Arg
+  Arg,
 } from "type-graphql";
 import { IsAuth } from "@/middlewares/isAuth";
 import { GQLContext } from "@/types/context";
@@ -19,12 +19,6 @@ class UserResolver {
   hello(): string {
     return "hello World";
   }
-  @Query(() => String)
-  sentry(): string {
-    throw "sentry graphql error test";
-    return "Sentry";
-  }
-
   @UseMiddleware([IsAuth, ErrorInterceptor])
   @Query(() => User)
   currentUser(@Ctx() ctx: GQLContext): User {

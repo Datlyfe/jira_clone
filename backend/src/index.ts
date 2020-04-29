@@ -14,6 +14,7 @@ import { apolloServerSentryPlugin } from "@/gql/plugins/sentry";
 
 Sentry.init({
   environment: process.env.APP_ENV,
+  release: 'jira-clone-api',
   dsn: process.env.SENTRY_DSN,
   integrations: [
     new RewriteFrames({
@@ -51,8 +52,7 @@ const initExpressGraphql = async () => {
   app.use(Express.urlencoded({ extended: true }));
 
   app.get("/", (_, res) => {
-    throw "a sentry express error test";
-    res.json({ server: "jira-pi" });
+    res.json({ server: "jira-clone-api" });
   });
 
   apolloServer.applyMiddleware({ app });

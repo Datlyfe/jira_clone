@@ -1,6 +1,6 @@
 <template>
   <div :style="{ width: `${sidebarWidth}px` }" class="sidebar">
-    <div tabindex="-1" class="sidebar-content">
+    <div class="sidebar-content">
       <div class="flex py-6 px-1">
         <j-icon name="project-avatar" :size="40"></j-icon>
         <div class="pt-1 pl-2">

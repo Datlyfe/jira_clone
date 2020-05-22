@@ -5,14 +5,17 @@ import * as models from "@/models";
 const commonConfig: ConnectionOptions = {
   type: "postgres",
   entities: Object.values(models),
-  synchronize: true
+  synchronize: true,
 };
 
 const connectionOptions: ConnectionOptions =
   process.env.NODE_ENV === "production"
     ? {
         url: process.env.DATABASE_URL,
-        ...commonConfig
+        ...commonConfig,
+        extra: {
+          max: 5,
+        },
       }
     : {
         host: process.env.DB_HOST,
@@ -20,7 +23,7 @@ const connectionOptions: ConnectionOptions =
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        ...commonConfig
+        ...commonConfig,
       };
 
 const createDatabaseConnection = (): Promise<Connection> =>

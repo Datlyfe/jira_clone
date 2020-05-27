@@ -2,37 +2,6 @@
 @import './assets/css/tailwind.css';
 @import '~toastify-js/src/toastify.css';
 
-$vt-font-family: 'CircularStd', sans-serif !default;
-
-.Vue-Toastification__toast {
-  font-family: 'CircularStd', sans-serif !important;
-  pointer-events: auto;
-}
-
-.Vue-Toastification__toast--success {
-  background-color: #0b875b !important;
-}
-
-.Vue-Toastification__toast--error {
-  background-color: #e13c3c !important;
-}
-.Vue-Toastification__toast--default {
-  background-color: #0052cc !important;
-}
-
-:root {
-  --microtip-transition-duration: 0.1s;
-  --microtip-font-size: 14px;
-}
-
-[role~='tooltip'][data-microtip-position='right']::after {
-  margin-left: 20px !important;
-}
-
-[role~='tooltip'][data-microtip-position='right']::before {
-  margin-left: 14px;
-}
-
 body {
   line-height: 1.2;
   text-rendering: optimizeLegibility;
@@ -60,18 +29,12 @@ body {
   overflow: auto;
   will-change: padding-left;
   transition: padding-left 300ms cubic-bezier(0.2, 0, 0, 1) 0s;
-  transform: translate3d(0, 0, 0);
 }
 
 .page {
   min-width: 800px;
 }
 
-[aria-label][role~='tooltip']::before,
-[aria-label][role~='tooltip']::after {
-  z-index: 100000 !important;
-  font-family: 'CircularStd' sans-serif !important;
-}
 
 button,
 body,

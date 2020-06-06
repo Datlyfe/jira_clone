@@ -15,7 +15,7 @@
   "dependencies": {
     "@sentry/integrations": "^5.15.5",
     "@sentry/node": "5.15.5",
-    "apollo-server-express": "^2.10.1",
+    "apollo-server-express": "^2.14.2",
     "apollo-server-plugin-base": "^0.7.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

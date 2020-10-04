@@ -34,7 +34,7 @@ I think the state of the project is good as it is right now feature wise and i w
 
 ## Credits
 
-Insprited by <a href="https://github.com/oldboyxx/jira_clone" target="_blank">oldboyxx/jira_clone</a>
+Inspired by <a href="https://github.com/oldboyxx/jira_clone" target="_blank">oldboyxx/jira_clone</a>
 
 ## License
 

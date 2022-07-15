@@ -1,6 +1,6 @@
 <template>
-  <div class="px-8 pb-16 pt-6">
-    <div class="relative pr-7 mb-10">
+  <div class="px-8 pt-6 pb-16">
+    <div class="relative mb-10 pr-7">
       <j-input
         ref="searchInputRef"
         class="flat text-textMedium"
@@ -12,7 +12,7 @@
       />
     </div>
     <div
-      class="pt-10 flex flex-col justify-center items-center"
+      class="flex flex-col items-center justify-center pt-10"
       v-if="loading && !isSearchTermEmpty"
     >
       <Spinner />
@@ -35,11 +35,11 @@
         />
       </div>
       <div
-        class="pt-10 flex flex-col justify-center items-center"
+        class="flex flex-col items-center justify-center pt-10"
         v-if="!isSearchTermEmpty && !loading && matchingIssues.length === 0"
       >
         <j-icon :size="125" name="no-result"></j-icon>
-        <div class="pt-8 font-medium text-xl">
+        <div class="pt-8 text-xl font-medium">
           We couldn&apos;t find anything matching your search
         </div>
         <div class="pt-2 text-15">Try again with a different term.</div>
@@ -57,7 +57,7 @@ import { getProjectIssues } from '@/graphql/queries/issue'
 import { Issue } from '@/types/issue'
 import { getters } from '@/store'
 import { debounce } from 'throttle-debounce'
-import { CombinedVueInstance } from 'vue/types/vue'
+import {  } from 'vue'
 // eslint-disable-next-line
 const sortByNewest = (items: any[] = [], sortField: string) =>
   items.sort((a, b) => -a[sortField].localeCompare(b[sortField]))
@@ -70,9 +70,7 @@ export default defineComponent({
   setup() {
     const isSearchTermEmpty = ref<boolean>(true)
     const searchTerm = ref<string>('')
-    const searchInputRef = ref<
-      CombinedVueInstance<Vue, object, object, object, object>
-    >(null)
+    const searchInputRef = ref<any>(null)
     const { result, refetch, loading } = useQuery<Issue[]>(getProjectIssues, {
       searchTerm: searchTerm.value
     })

@@ -4,7 +4,7 @@
   "author": "Bouaggad Moez",
   "license": "MIT",
   "scripts": {
-    "install-deps": "yarn install && cd backend && yarn install && cd ../frontend && yarn install",
+    "install-deps": "cd backend && yarn install && cd ../frontend && yarn install",
     "start:front": "cd frontend && yarn start",
     "build:front": "cd frontend && yarn build",
     "start:back": "cd backend && yarn start",

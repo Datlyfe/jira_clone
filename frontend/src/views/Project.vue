@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@vue/composition-api'
+import { defineComponent, ref, computed } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { mutations } from '@/store'
 import { getProjectWithUsersAndIssues } from '@/graphql/queries/project'
@@ -21,7 +21,7 @@ export default defineComponent({
   components: {
     Navigation,
     PageLoader,
-    ErrorPage
+    ErrorPage,
   },
   setup() {
     const expanded = ref<boolean>(true)
@@ -31,7 +31,7 @@ export default defineComponent({
 
     const getContentStyles = computed(() => ({
       'padding-left': `${expanded.value ? 240 : 20}` + 'px',
-      'margin-left': '64px'
+      'margin-left': '64px',
     }))
 
     const match = window.matchMedia('(max-width: 1100px)')
@@ -47,7 +47,7 @@ export default defineComponent({
       { fetchPolicy: 'no-cache' }
     )
 
-    onResult(res => {
+    onResult((res) => {
       if (res) {
         const { data } = res
         if (data) {
@@ -61,8 +61,8 @@ export default defineComponent({
       error,
       expanded,
       handleNavigationResize,
-      getContentStyles
+      getContentStyles,
     }
-  }
+  },
 })
 </script>

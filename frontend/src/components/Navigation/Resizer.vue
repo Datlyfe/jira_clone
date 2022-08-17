@@ -13,7 +13,7 @@
           <j-icon
             :name="expanded ? 'chevron-left' : 'chevron-right'"
             :size="24"
-            class="icon text-textMedium "
+            class="icon text-textMedium"
           ></j-icon>
         </span>
       </button>
@@ -22,13 +22,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 export default defineComponent({
   props: {
     expanded: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props, { emit }) {
     const handleResize = () => {
@@ -36,9 +36,9 @@ export default defineComponent({
     }
 
     return {
-      handleResize
+      handleResize,
     }
-  }
+  },
 })
 </script>
 

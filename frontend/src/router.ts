@@ -1,55 +1,48 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+
 import store from '@/store'
 import { authenticate } from '@/auth/authenticate'
 import { fetchMe } from '@/graphql/queries/auth'
 
-Vue.use(VueRouter)
-
-function loadView(view: string) {
-  return () =>
-    import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`)
-}
-
-const routes: RouteConfig[] = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'root',
-    redirect: 'project'
+    redirect: 'project',
   },
   {
     path: '/project',
     meta: { requiresAuth: true },
-    component: loadView('Project/Project'),
+    component: () => import('@/views/Project.vue'),
     children: [
       {
         path: '',
         name: 'board',
-        component: loadView('Project/Board')
+        component: () => import('@/views/Board.vue'),
       },
       {
         path: 'settings',
         name: 'settings',
-        component: loadView('Project/Settings')
+        component: () => import('@/views/Settings.vue'),
       },
       {
         path: 'issue/:issueId',
         name: 'issue',
-        component: loadView('Project/FullIIssueDetails'),
-        props: true
-      }
-    ]
-  }
+        component: () => import('@/views/FullIIssueDetails.vue'),
+        props: true,
+      },
+    ],
+  },
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
 })
 
 router.beforeEach(async (to, _, next) => {
-  if (to.matched.some(routeRecord => routeRecord.meta.requiresAuth)) {
+  if (to.matched.some((routeRecord) => routeRecord.meta.requiresAuth)) {
     if (!store.getters.isAuthenticated()) {
       await authenticate()
       next({ name: to.name || 'root' })
@@ -58,11 +51,11 @@ router.beforeEach(async (to, _, next) => {
         const currentUser = await fetchMe()
         store.mutations.setCurrentUser(currentUser)
         next()
-      } catch (error) {
+      } catch (error: any) {
         if (
-          error.message ===
+          error?.message ===
             'GraphQL error: Authentication token is invalid: User not found.' ||
-          error.message === 'GraphQL error: Authentication token is invalid.'
+          error?.message === 'GraphQL error: Authentication token is invalid.'
         ) {
           await authenticate()
           next({ name: to.name || 'root' })

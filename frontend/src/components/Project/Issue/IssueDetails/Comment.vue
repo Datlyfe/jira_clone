@@ -39,9 +39,7 @@
           >
             Save
           </j-button>
-          <j-button variant="empty" @click="handleCancel">
-            Cancel
-          </j-button>
+          <j-button variant="empty" @click="handleCancel"> Cancel </j-button>
         </div>
       </div>
       <div v-else>
@@ -75,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from '@vue/composition-api'
+import { defineComponent, computed, ref } from 'vue'
 
 import { Comment } from '@/types/comment'
 import { formatDateTimeConversational } from '@/utils/date'
@@ -87,16 +85,16 @@ export default defineComponent({
   props: {
     comment: {
       type: Object as () => Comment,
-      required: true
+      required: true,
     },
     isCreate: {
       type: Boolean,
-      default: false
+      default: false,
     },
     refetchIssue: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props, { root, emit }) {
     const currentUser = computed(getters.currentUser)
@@ -118,7 +116,7 @@ export default defineComponent({
         const comment = {
           body: newComment.value,
           issueId: props.comment.issueId,
-          userId: props.comment.user.id
+          userId: props.comment.user.id,
         }
         // eslint-disable-next-line
         await createMutation({ comment } as any)
@@ -142,7 +140,7 @@ export default defineComponent({
         const comment = {
           body: newComment.value,
           issueId: props.comment.issueId,
-          userId: props.comment.user.id
+          userId: props.comment.user.id,
         }
         // eslint-disable-next-line
         await updateMutation({ comment, commentId: props.comment.id } as any)
@@ -197,9 +195,9 @@ export default defineComponent({
       handleKeyDown,
       handleCancel,
       handleFakeTextareaClicked,
-      handleCommentUpdate
+      handleCommentUpdate,
     }
-  }
+  },
 })
 </script>
 

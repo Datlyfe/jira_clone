@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from '@vue/composition-api'
+import { defineComponent, ref, computed, onMounted } from 'vue'
 const activeOptionClass = 'select-option-is-active'
 
 interface Option {
@@ -58,51 +58,51 @@ export default defineComponent({
   props: {
     dropdownWidth: {
       type: Number,
-      default: undefined
+      default: undefined,
     },
     value: {
       type: [Array, String, Number],
-      default: undefined
+      default: undefined,
     },
     isValueEmpty: {
       type: Boolean,
-      required: true
+      required: true,
     },
     searchable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     searchValue: {
       type: String,
-      required: true
+      required: true,
     },
     deactivateDropdown: {
       type: Function,
-      required: true
+      required: true,
     },
     options: {
       type: Array as () => Array<Option>,
-      required: true
+      required: true,
     },
     onCreate: {
       type: Function,
-      default: undefined
+      default: undefined,
     },
     isMulti: {
       type: Boolean,
-      required: true
+      required: true,
     },
     withClearValue: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props, { emit, root }) {
     const isCreatingOption = ref<boolean>(false)
     const optionsRef = ref<HTMLDivElement>(null)
 
     const optionsFilteredBySearchValue = computed(() =>
-      props.options.filter(option =>
+      props.options.filter((option) =>
         option.label
           .toString()
           .toLowerCase()
@@ -113,10 +113,11 @@ export default defineComponent({
     const filteredOptions = computed(() =>
       props.isMulti
         ? optionsFilteredBySearchValue.value.filter(
-            option => !(props.value as [string | number]).includes(option.value)
+            (option) =>
+              !(props.value as [string | number]).includes(option.value)
           )
         : optionsFilteredBySearchValue.value.filter(
-            option => props.value !== option.value
+            (option) => props.value !== option.value
           )
     )
 
@@ -124,7 +125,7 @@ export default defineComponent({
       () =>
         props.onCreate &&
         props.searchValue &&
-        !props.options.map(option => option.label).includes(props.searchValue)
+        !props.options.map((option) => option.label).includes(props.searchValue)
     )
 
     const handleSearchValueChange = (event: InputEvent) => {
@@ -143,7 +144,7 @@ export default defineComponent({
     ) => {
       if (props.isMulti) {
         emit('change', [
-          ...new Set([...(props.value as Array<string | number>), optionValue])
+          ...new Set([...(props.value as Array<string | number>), optionValue]),
         ])
       } else {
         props.deactivateDropdown()
@@ -263,9 +264,9 @@ export default defineComponent({
       handleInputEnterKeyDown,
       handleInputArrowUpOrDownKeyDown,
       handleInputKeyDown,
-      handleOptionMouseEnter
+      handleOptionMouseEnter,
     }
-  }
+  },
 })
 </script>
 

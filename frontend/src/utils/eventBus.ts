@@ -1,3 +1,3 @@
-import Vue from 'vue'
+import Mitt from 'mitt'
 
-export default new Vue({})
+export default Mitt()

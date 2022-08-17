@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 import { Issue } from '@/types/issue'
 import Modal from '@/components/Modals/Modal.vue'
 import IssueDetails from '@/components/Project/Issue/IssueDetails/IssueDetails.vue'
@@ -22,24 +22,24 @@ import eventBus from '@/utils/eventBus'
 
 export default defineComponent({
   components: {
-    Modal
+    Modal,
   },
   props: {
     issue: {
       type: Object as () => Issue,
-      default: null
-    }
+      default: null,
+    },
   },
   setup(props) {
     const selectResult = () => {
-      eventBus.$emit('close-search-modal')
-      eventBus.$emit('toggle-issue-details', true, props.issue.id)
+      eventBus.emit('close-search-modal')
+      eventBus.emit('toggle-issue-details', true, props.issue.id)
     }
     return {
       selectResult,
-      IssueDetails
+      IssueDetails,
     }
-  }
+  },
 })
 </script>
 

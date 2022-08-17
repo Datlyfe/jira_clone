@@ -12,19 +12,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from '@vue/composition-api'
+import { defineComponent, onMounted, ref } from 'vue'
 import autosize from 'autosize'
 
 export default defineComponent({
   name: 'j-textarea',
   props: {
     value: {
-      default: undefined
+      default: undefined,
     },
     autoFocus: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props, { emit }) {
     const elementRef = ref<HTMLTextAreaElement>(null)
@@ -40,9 +40,9 @@ export default defineComponent({
     })
     return {
       elementRef,
-      handleInput
+      handleInput,
     }
-  }
+  },
 })
 </script>
 

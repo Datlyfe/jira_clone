@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES2016",
+    "module": "ESNext",
     "strict": true,
     "jsx": "react",
     "jsxFactory": "h",
@@ -12,8 +12,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "webpack-env",
-      "jest"
+      "node",
+      "vite/client"
     ],
     "paths": {
       "@/*": [
@@ -21,20 +21,14 @@
       ]
     },
     "lib": [
-      "esnext",
-      "dom",
+      "ESNext",
+      "DOM",
       "dom.iterable",
       "scripthost"
     ]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
   "exclude": [
+    "dist",
     "node_modules"
   ]
 }

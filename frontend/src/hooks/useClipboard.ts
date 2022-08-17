@@ -1,4 +1,4 @@
-import { ref, Ref } from '@vue/composition-api'
+import { ref, Ref } from 'vue'
 
 const copyToClipboard = async (text: string) => {
   if (navigator.clipboard) {
@@ -43,7 +43,7 @@ export const useClipboard = (): [
   Ref<string | null>,
   (text: string) => Promise<void>
 ] => {
-  const clipboard = ref<string>(null)
+  const clipboard = ref<string>('')
 
   const setClipboard = (text: string) => {
     clipboard.value = text

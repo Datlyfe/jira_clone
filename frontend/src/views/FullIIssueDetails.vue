@@ -1,6 +1,6 @@
 <template>
   <div
-    class="pr-6 py-8 pl-10  h-full w-full flex flex-col h-full w-full flex flex-col"
+    class="pr-6 py-8 pl-10 h-full w-full flex flex-col h-full w-full flex flex-col"
   >
     <j-breadcrumbs :items="['Projects', project.name, 'Issues', issueId]" />
     <IssueDetails
@@ -13,25 +13,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import IssueDetails from '@/components/Project/Issue/IssueDetails/IssueDetails.vue'
 import { getters } from '@/store'
 export default defineComponent({
   props: {
     issueId: {
       type: [String, Number],
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    IssueDetails
+    IssueDetails,
   },
   setup() {
     const project = computed(getters.project)
     return {
-      project
+      project,
     }
-  }
+  },
 })
 </script>
 

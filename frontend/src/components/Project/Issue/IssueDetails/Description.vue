@@ -16,25 +16,23 @@
         class="mr-2"
       >
         Save</j-button
-      ><j-button @click="cancelWrite" variant="empty">
-        Cancel
-      </j-button>
+      ><j-button @click="cancelWrite" variant="empty"> Cancel </j-button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@vue/composition-api'
+import { defineComponent, ref, computed } from 'vue'
 export default defineComponent({
   props: {
     initialValue: {
       type: String,
-      default: ''
+      default: '',
     },
     updateIssue: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const mode = ref<string>('read')
@@ -69,9 +67,9 @@ export default defineComponent({
       isWorking,
       cancelWrite,
       handleModeChange,
-      updateIssueDescription
+      updateIssueDescription,
     }
-  }
+  },
 })
 </script>
 

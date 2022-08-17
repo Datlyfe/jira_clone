@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import dayjs from 'dayjs'
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import { Container, Draggable } from 'vue-smooth-dnd'
 
 import issueComponent from '@/components/Project/Issue/Issue.vue'
@@ -43,22 +43,23 @@ const filterIssues = (
   let issues = [...projectIssues]
 
   if (searchTerm) {
-    issues = issues.filter(issue =>
+    issues = issues.filter((issue) =>
       issue.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
   }
   if (userIds.length > 0) {
     issues = issues.filter(
-      issue =>
-        [issue.userIds, userIds].reduce((a, b) => a.filter(c => b.includes(c)))
-          .length > 0
+      (issue) =>
+        [issue.userIds, userIds].reduce((a, b) =>
+          a.filter((c) => b.includes(c))
+        ).length > 0
     )
   }
   if (myOnly && currentUserId) {
-    issues = issues.filter(issue => issue.userIds.includes(currentUserId))
+    issues = issues.filter((issue) => issue.userIds.includes(currentUserId))
   }
   if (recent) {
-    issues = issues.filter(issue =>
+    issues = issues.filter((issue) =>
       dayjs(issue.updatedAt).isAfter(dayjs().subtract(3, 'day'))
     )
   }
@@ -69,13 +70,13 @@ export default defineComponent({
   props: {
     status: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
     Issue: issueComponent,
     Container,
-    Draggable
+    Draggable,
   },
   setup(props, { emit }) {
     const project = computed(getters.project)
@@ -103,7 +104,7 @@ export default defineComponent({
     const dropPlaceholderOptions = {
       className: 'drop-preview',
       animationDuration: '150',
-      showOnTop: true
+      showOnTop: true,
     }
 
     // eslint-disable-next-line
@@ -125,9 +126,9 @@ export default defineComponent({
       dropPlaceholderOptions,
       filteredListIssues,
       formatedIssuesCount,
-      IssueStatusCopy
+      IssueStatusCopy,
     }
-  }
+  },
 })
 </script>
 

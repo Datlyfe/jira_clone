@@ -14,30 +14,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 export default defineComponent({
   name: 'j-input',
   inheritAttrs: false,
   props: {
     value: {
       type: [String, Number],
-      default: undefined
+      default: undefined,
     },
     icon: {
       type: String,
-      default: null
+      default: null,
     },
     iconSize: {
       type: Number,
-      default: 16
+      default: 16,
     },
     invalid: {
       type: Boolean,
-      default: false
+      default: false,
     },
     filter: {
-      default: undefined
-    }
+      default: undefined,
+    },
   },
   setup(props, { emit }) {
     const handleInput = (event: InputEvent) => {
@@ -47,14 +47,14 @@ export default defineComponent({
       emit('blur', (event.currentTarget as HTMLInputElement).value)
     }
     const Iconstyles = computed(() => ({
-      '--iconContainerWidth': props.iconSize * 2 + 'px'
+      '--iconContainerWidth': props.iconSize * 2 + 'px',
     }))
     return {
       handleInput,
       handleBlur,
-      Iconstyles
+      Iconstyles,
     }
-  }
+  },
 })
 </script>
 

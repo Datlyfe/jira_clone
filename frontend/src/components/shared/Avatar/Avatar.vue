@@ -9,26 +9,26 @@
 
 <script lang="ts">
 import { avatarColors } from '@/utils/colors'
-import { computed, defineComponent } from '@vue/composition-api'
+import { computed, defineComponent } from 'vue'
 export default defineComponent({
   name: 'j-avatar',
   props: {
     avatarUrl: {
       type: String,
-      default: null
+      default: null,
     },
     name: {
       type: String,
-      default: ''
+      default: '',
     },
     size: {
       type: Number,
-      default: 32
+      default: 32,
     },
     rounded: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   setup(props) {
     const getImageStyle = computed(() => ({
@@ -39,7 +39,7 @@ export default defineComponent({
       backgroundImage: `url('${props.avatarUrl}')`,
       backgroundPosition: '50% 50%',
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover'
+      backgroundSize: 'cover',
     }))
 
     const getColorFromName = computed(
@@ -53,14 +53,14 @@ export default defineComponent({
       width: `${props.size}px`,
       height: `${props.size}px`,
       background: getColorFromName.value,
-      fontSize: `${Math.round(props.size / 2)}px`
+      fontSize: `${Math.round(props.size / 2)}px`,
     }))
 
     return {
       getImageStyle,
-      getLetterStyle
+      getLetterStyle,
     }
-  }
+  },
 })
 </script>
 

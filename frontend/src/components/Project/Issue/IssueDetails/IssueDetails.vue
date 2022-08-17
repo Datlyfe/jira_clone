@@ -29,9 +29,9 @@
         variant="empty"
       />
     </div>
-    <div class="flex w-full flex-wrap pb-16 px-7">
+    <div class="flex flex-wrap w-full pb-16 px-7">
       <!-- LEFT SECTION -->
-      <div class="sm:w-full md:w-7/12 lg:w-4/6 pr-10">
+      <div class="pr-10 sm:w-full md:w-7/12 lg:w-4/6">
         <!-- Title -->
         <IssueTitle :updateIssue="handleUpdateIssue" :value="issueCopy.title" />
         <!-- Description -->
@@ -48,11 +48,11 @@
             :comment="{
               user: currentUser,
               body: 'Add a comment...',
-              issueId
+              issueId,
             }"
           />
           <Comment
-            @delete="triggeCommentDelete"
+            @delete="triggerCommentDelete"
             :refetchIssue="refetchIssue"
             :comment="comment"
             v-for="comment in commentsSorted"
@@ -61,7 +61,7 @@
         </div>
       </div>
       <!-- RIGHT SECTION -->
-      <div class="sm:w-full md:w-5/12 lg:w-2/6 pt-1">
+      <div class="pt-1 sm:w-full md:w-5/12 lg:w-2/6">
         <!-- STATUS -->
         <IssueStatus
           :updateIssue="handleUpdateIssue"
@@ -80,7 +80,7 @@
         />
         <!-- DATES -->
         <div
-          class="mt-3 pt-3 leading-loose border-t border-borderLightest text-textMedium text-13"
+          class="pt-3 mt-3 leading-loose border-t border-borderLightest text-textMedium text-13"
         >
           <div>
             Created - {{ formatDateTimeConversational(issueCopy.createdAt) }}
@@ -96,12 +96,7 @@
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  defineComponent,
-  ref,
-  computed,
-  onUnmounted
-} from '@vue/composition-api'
+import { defineComponent, ref, computed, onUnmounted } from 'vue'
 import { useClipboard } from '@/hooks/useClipboard'
 import { Issue } from '@/types/issue'
 import { useQuery, useMutation } from '@vue/apollo-composable'
@@ -109,7 +104,7 @@ import {
   getIssueWithUsersAndComments,
   deleteIssue,
   getProjectIssues,
-  updateIssueMutation
+  updateIssueMutation,
 } from '@/graphql/queries/issue'
 import IssueLoader from '@/components/Project/IssueLoader.vue'
 import Comment from './Comment.vue'
@@ -137,34 +132,38 @@ export default defineComponent({
     IssueType,
     IssueStatus,
     IssueAssigneesReporter,
-    IssuePriority
+    IssuePriority,
   },
   props: {
     issueId: {
       type: [String, Number],
-      required: true
+      required: true,
     },
     withCloseButton: {
       type: Boolean,
-      default: true
+      default: true,
     },
     withFullScreenButton: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   setup(props, { root, emit }) {
-    const issueCopy = ref<Issue>(null)
+    const issueCopy = ref<Issue>()
     const project = computed(getters.project)
     const currentUser = computed(getters.currentUser)
 
-    const { onResult, loading, refetch: refetchIssue } = useQuery<{
+    const {
+      onResult,
+      loading,
+      refetch: refetchIssue,
+    } = useQuery<{
       getIssueWithUsersAndComments: Issue
     }>(getIssueWithUsersAndComments, {
-      id: Number(props.issueId)
+      id: Number(props.issueId),
     })
 
-    onResult(res => {
+    onResult((res) => {
       if (res && res.data && !res.loading) {
         issueCopy.value = res.data.getIssueWithUsersAndComments
       }
@@ -185,7 +184,7 @@ export default defineComponent({
         window.location.origin +
         root.$router.resolve({
           name: 'issue',
-          params: { issueId: `${props.issueId}` }
+          params: { issueId: `${props.issueId}` },
         }).href
 
       await setClipboard(path)
@@ -194,7 +193,7 @@ export default defineComponent({
     const goFullScreen = () => {
       root.$router.push({
         name: 'issue',
-        params: { issueId: `${props.issueId}` }
+        params: { issueId: `${props.issueId}` },
       })
       emit('close')
     }
@@ -212,11 +211,11 @@ export default defineComponent({
           project.value.issues,
           props.issueId as string,
           fields
-        )
+        ),
       })
       await mutateIssue({
         issueId: Number(props.issueId),
-        issue: { ...fields }
+        issue: { ...fields },
       } as any)
       await refetchIssue()
     }
@@ -230,21 +229,21 @@ export default defineComponent({
 
     const isDeleteConfirmOpen = ref<boolean>(false)
     const triggerIssueDelete = () => {
-      eventBus.$emit('toggle-issue-delete', true, props.issueId)
+      eventBus.emit('toggle-issue-delete', true)
     }
 
     const deleteIssueHandler = async () => {
       await mutate({ issueId: Number(props.issueId) } as any)
       const res = await fetchProjectIssues()
-      if (res.data) {
+      if (res?.data) {
         mutations.setProject({
           ...project.value,
-          issues: res.data.getProjectIssues
+          issues: res.data.getProjectIssues,
         })
       }
-      eventBus.$emit('toggle-issue-delete', false)
-      eventBus.$emit('toggle-issue-details', false)
-      eventBus.$emit('toggle-issue-search', false)
+      eventBus.emit('toggle-issue-delete', false)
+      eventBus.emit('toggle-issue-details', false)
+      eventBus.emit('toggle-issue-search', false)
       if (root.$route.name != 'board') {
         root.$router.replace({ name: 'board' })
       }
@@ -254,23 +253,23 @@ export default defineComponent({
 
     const { mutate: deleteMutation } = useMutation(deleteComment)
 
-    const triggeCommentDelete = (id: string | number) => {
-      eventBus.$emit('toggle-comment-delete', true, id)
+    const triggerCommentDelete = (id: string | number) => {
+      eventBus.emit('toggle-comment-delete', { isOpen: true, id })
     }
 
-    const deleteCommentHandler = async (id: string | number) => {
+    const deleteCommentHandler = async (id: any) => {
       await deleteMutation({ commentId: `${id}` } as any)
       await refetchIssue()
-      eventBus.$emit('toggle-comment-delete', false)
+      eventBus.emit('toggle-comment-delete', false)
     }
 
-    eventBus.$on('confirm-issue-delete', deleteIssueHandler)
+    eventBus.on('confirm-issue-delete', deleteIssueHandler)
 
-    eventBus.$on('confirm-comment-delete', deleteCommentHandler)
+    eventBus.on('confirm-comment-delete', deleteCommentHandler)
 
     onUnmounted(() => {
-      eventBus.$off('confirm-issue-delete', deleteIssueHandler)
-      eventBus.$off('confirm-comment-delete', deleteCommentHandler)
+      eventBus.off('confirm-issue-delete', deleteIssueHandler)
+      eventBus.off('confirm-comment-delete', deleteCommentHandler)
     })
 
     return {
@@ -284,12 +283,12 @@ export default defineComponent({
       copyIssueLink,
       goFullScreen,
       triggerIssueDelete,
-      triggeCommentDelete,
+      triggerCommentDelete,
       commentsSorted,
       isDeleteConfirmOpen,
-      formatDateTimeConversational
+      formatDateTimeConversational,
     }
-  }
+  },
 })
 </script>
 
@@ -298,7 +297,7 @@ export default defineComponent({
   @apply mt-5;
 }
 .sep {
-  @apply mt-5 border border-backgroundLightest;
+  @apply mt-5 border-backgroundLightest;
 }
 .formFieldLabel {
   @apply block pb-1-25 text-textMedium text-13 font-medium;

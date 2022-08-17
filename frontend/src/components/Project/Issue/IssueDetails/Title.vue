@@ -3,7 +3,7 @@
     <j-textarea
       placeholder="Short summary"
       class="title"
-      @input="e => (title = e)"
+      @input="(e) => (title = e)"
       @blur="updateIssueDescription"
       :value="value"
     />
@@ -11,17 +11,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent, ref } from 'vue'
 export default defineComponent({
   props: {
     value: {
       type: String,
-      default: ''
+      default: '',
     },
     updateIssue: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const isWorking = ref<boolean>(false)
@@ -40,9 +40,9 @@ export default defineComponent({
     return {
       title,
       isWorking,
-      updateIssueDescription
+      updateIssueDescription,
     }
-  }
+  },
 })
 </script>
 

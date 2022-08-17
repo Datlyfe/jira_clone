@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from '@vue/composition-api'
+import { defineComponent, onMounted, ref, watch } from 'vue'
 import Quill from 'quill'
 import { quillConfig } from './editor'
 export default defineComponent({
@@ -22,20 +22,20 @@ export default defineComponent({
   props: {
     placeholder: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     value: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     defaultValue: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     mode: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props, { emit }) {
     const quill = ref<Quill>(null)
@@ -45,7 +45,7 @@ export default defineComponent({
     const initQuill = () => {
       return new Quill(editorRef.value as HTMLDivElement, {
         placeholder: props.placeholder,
-        ...quillConfig
+        ...quillConfig,
       })
     }
 
@@ -75,7 +75,7 @@ export default defineComponent({
         }
       },
       {
-        lazy: true
+        lazy: true,
       }
     )
 
@@ -93,9 +93,9 @@ export default defineComponent({
       editorRef,
       getHTMLValue,
       initialValue,
-      enableWriteMode
+      enableWriteMode,
     }
-  }
+  },
 })
 </script>
 

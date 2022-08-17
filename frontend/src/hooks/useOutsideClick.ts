@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Ref, ref, onMounted, onUnmounted } from '@vue/composition-api'
+import { Ref, ref, onMounted, onUnmounted } from 'vue'
 
 export const useOutsideClick = (
   $root: Ref<HTMLElement | null>,

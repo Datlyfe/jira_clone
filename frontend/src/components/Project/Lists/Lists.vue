@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from '@vue/composition-api'
+import { defineComponent, computed, ref } from 'vue'
 import List from '@/components/Project/Lists/List.vue'
 import { IssueStatus } from '@/types/issue'
 import { getters, mutations } from '@/store'
@@ -20,14 +20,14 @@ import {
   Target,
   calculateIssueListPosition,
   isPositionChanged,
-  updateArrayItemById
+  updateArrayItemById,
 } from '@/utils/dnd'
 import { useMutation } from '@vue/apollo-composable'
 import { updateIssueMutation } from '@/graphql/queries/issue'
 
 export default defineComponent({
   components: {
-    List
+    List,
   },
   setup() {
     const project = computed(getters.project)
@@ -46,7 +46,7 @@ export default defineComponent({
           d,
           s,
           issueId
-        )
+        ),
       }
 
       const issues = updateArrayItemById(
@@ -59,14 +59,14 @@ export default defineComponent({
       // optimistic update
       mutations.setProject({
         ...project.value,
-        issues
+        issues,
       })
 
       mutate({
         issueId: Number(issueId),
-        issue: issueUpdateValues
+        issue: issueUpdateValues,
         // eslint-disable-next-line
-      } as any).catch(e => {
+      } as any).catch((e) => {
         console.error(e)
         mutations.setProject(oldProjectValues)
       })
@@ -82,14 +82,14 @@ export default defineComponent({
       if (removedIndex != null) {
         source.value = {
           index: removedIndex,
-          droppableId: payload.status
+          droppableId: payload.status,
         }
       }
 
       if (addedIndex != null) {
         destination.value = {
           index: addedIndex,
-          droppableId: Object.values(IssueStatus)[to]
+          droppableId: Object.values(IssueStatus)[to],
         }
       }
 
@@ -100,8 +100,8 @@ export default defineComponent({
 
     return {
       onDrop,
-      IssueStatus
+      IssueStatus,
     }
-  }
+  },
 })
 </script>

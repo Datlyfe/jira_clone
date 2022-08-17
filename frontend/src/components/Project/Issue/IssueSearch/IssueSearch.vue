@@ -49,7 +49,7 @@
 </template>
 
 <script lang="tsx">
-import { defineComponent, ref, computed, onMounted } from '@vue/composition-api'
+import { defineComponent, ref, computed, onMounted } from 'vue'
 import SearchResult from './SearchResult.vue'
 import Loader from '@/components/Loader.vue'
 import { useQuery, useResult } from '@vue/apollo-composable'
@@ -57,7 +57,7 @@ import { getProjectIssues } from '@/graphql/queries/issue'
 import { Issue } from '@/types/issue'
 import { getters } from '@/store'
 import { debounce } from 'throttle-debounce'
-import {  } from 'vue'
+import {} from 'vue'
 // eslint-disable-next-line
 const sortByNewest = (items: any[] = [], sortField: string) =>
   items.sort((a, b) => -a[sortField].localeCompare(b[sortField]))
@@ -65,14 +65,14 @@ const sortByNewest = (items: any[] = [], sortField: string) =>
 export default defineComponent({
   components: {
     SearchResult,
-    Spinner: Loader
+    Spinner: Loader,
   },
   setup() {
     const isSearchTermEmpty = ref<boolean>(true)
     const searchTerm = ref<string>('')
     const searchInputRef = ref<any>(null)
     const { result, refetch, loading } = useQuery<Issue[]>(getProjectIssues, {
-      searchTerm: searchTerm.value
+      searchTerm: searchTerm.value,
     })
 
     const project = computed(getters.project)
@@ -106,9 +106,9 @@ export default defineComponent({
       isSearchTermEmpty,
       handleSearchChange,
       searchTerm,
-      searchInputRef
+      searchInputRef,
     }
-  }
+  },
 })
 </script>
 

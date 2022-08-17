@@ -34,24 +34,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 import { IssueStatusCopy, IssueStatus } from '@/types/issue'
 import { issueStatusVariants } from '@/utils/colors'
 export default defineComponent({
   props: {
     value: {
       type: String as () => IssueStatus,
-      required: true
+      required: true,
     },
     updateIssue: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
-    const issueStatusOptions = Object.values(IssueStatus).map(status => ({
+    const issueStatusOptions = Object.values(IssueStatus).map((status) => ({
       value: status,
-      label: IssueStatusCopy[status]
+      label: IssueStatusCopy[status],
     }))
     const updateIssueStatus = async (status: IssueStatus) => {
       try {
@@ -64,9 +64,9 @@ export default defineComponent({
     return {
       issueStatusOptions,
       issueStatusVariants,
-      updateIssueStatus
+      updateIssueStatus,
     }
-  }
+  },
 })
 </script>
 

@@ -10,7 +10,7 @@
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { defineComponent, ref, computed } from '@vue/composition-api'
+import { defineComponent, ref, computed } from 'vue'
 import Navigation from '@/components/Navigation/Navigation.vue'
 import PageLoader from '@/components/Loader.vue'
 import ErrorPage from '@/components/ErrorPage.vue'
@@ -23,7 +23,7 @@ export default defineComponent({
     Navigation,
     PageLoader,
     ErrorPage,
-    Modals
+    Modals,
   },
   setup() {
     const expanded = ref<boolean>(true)
@@ -39,7 +39,7 @@ export default defineComponent({
 
     const getContentStyles = computed(() => ({
       'padding-left': `${expanded.value ? 240 : 20}` + 'px',
-      'margin-left': '64px'
+      'margin-left': '64px',
     }))
 
     const match = window.matchMedia('(max-width: 1100px)')
@@ -55,7 +55,7 @@ export default defineComponent({
       { fetchPolicy: 'no-cache' }
     )
 
-    onResult(res => {
+    onResult((res) => {
       const { data } = res as any
       if (data) {
         mutations.setProject(data.getProjectWithUsersAndIssues)
@@ -68,8 +68,8 @@ export default defineComponent({
       error,
       expanded,
       handleNavigationResize,
-      getContentStyles
+      getContentStyles,
     }
-  }
+  },
 })
 </script>

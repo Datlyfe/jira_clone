@@ -20,25 +20,25 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onUnmounted } from '@vue/composition-api'
+import { ref, defineComponent, onUnmounted } from 'vue'
 export default defineComponent({
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     message: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     confirmText: {
       type: String,
-      default: 'Confirm'
+      default: 'Confirm',
     },
     variant: {
       type: String,
-      default: 'primary'
-    }
+      default: 'primary',
+    },
   },
   setup(props, { emit }) {
     const isWorking = ref<boolean>(false)
@@ -56,8 +56,8 @@ export default defineComponent({
     return {
       isWorking,
       handleClose,
-      handleConfirmed
+      handleConfirmed,
     }
-  }
+  },
 })
 </script>

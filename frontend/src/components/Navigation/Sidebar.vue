@@ -1,10 +1,10 @@
 <template>
   <div :style="{ width: `${sidebarWidth}px` }" class="sidebar">
     <div class="sidebar-content">
-      <div class="flex py-6 px-1">
+      <div class="flex px-1 py-6">
         <j-icon name="project-avatar" :size="40"></j-icon>
         <div class="pt-1 pl-2">
-          <div class="mb-1 text-textDark text-15 font-medium">
+          <div class="mb-1 font-medium text-textDark text-15">
             {{ project.name }}
           </div>
           <div class="text-textMedium text-13">
@@ -25,10 +25,8 @@
         >
           <j-icon :name="link.icon" :size="24" class="mr-4"></j-icon>
 
-          <div class="text-15 pt-px">{{ link.name }}</div>
-          <div v-if="!link.to" class="not-implemented">
-            Not implemented
-          </div>
+          <div class="pt-px text-15">{{ link.name }}</div>
+          <div v-if="!link.to" class="not-implemented">Not implemented</div>
         </component>
         <div v-if="index == 1" class="divider"></div>
       </div>
@@ -37,8 +35,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
-import { navLinks } from '@/components/Navigation/Sidebar.ts'
+import { defineComponent, computed } from 'vue'
+import { navLinks } from '@/components/Navigation/Sidebar'
 import { getters } from '../../store'
 import { ProjectCategoryCopy } from '@/types/project'
 
@@ -46,8 +44,8 @@ export default defineComponent({
   props: {
     expanded: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const project = computed(getters.project)
@@ -57,9 +55,9 @@ export default defineComponent({
       ProjectCategoryCopy,
       project,
       navLinks,
-      sidebarWidth
+      sidebarWidth,
     }
-  }
+  },
 })
 </script>
 
@@ -103,7 +101,7 @@ export default defineComponent({
   cursor: not-allowed;
 }
 .divider {
-  @apply mt-4 pt-4 border-t border-borderLight;
+  @apply mt-4 pt-4  border-borderLight;
 }
 
 .not-implemented {

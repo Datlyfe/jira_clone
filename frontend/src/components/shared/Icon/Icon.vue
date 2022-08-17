@@ -8,33 +8,33 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from '@vue/composition-api'
+import { computed, defineComponent } from 'vue'
 export default defineComponent({
   name: 'j-icon',
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     size: {
       type: Number,
-      default: 16
+      default: 16,
     },
     fill: {
       type: String,
-      default: 'currentColor'
-    }
+      default: 'currentColor',
+    },
   },
   setup(props) {
     const iconStyles = computed(() => ({
       width: props.size + 'px',
       height: props.size + 'px',
-      fill: props.fill
+      fill: props.fill,
     }))
 
     return {
-      iconStyles
+      iconStyles,
     }
-  }
+  },
 })
 </script>

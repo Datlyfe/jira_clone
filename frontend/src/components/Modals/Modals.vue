@@ -43,7 +43,7 @@
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent, ref } from 'vue'
 import IssueCreate from '@/components/Project/Issue/IssueCreate/IssueCreate.vue'
 import IssueSearch from '@/components/Project/Issue/IssueSearch/IssueSearch.vue'
 import IssueDetails from '@/components/Project/Issue/IssueDetails/IssueDetails.vue'
@@ -52,7 +52,7 @@ import Modal from './Modal.vue'
 import eventBus from '@/utils/eventBus'
 export default defineComponent({
   components: {
-    Modal
+    Modal,
   },
   setup() {
     const isIssueCreateOpen = ref<boolean>(false)
@@ -60,55 +60,52 @@ export default defineComponent({
     const isIssueDetailsOpen = ref<boolean>(false)
     const isIssueDeleteOpen = ref<boolean>(false)
     const isCommentDeleteOpen = ref<boolean>(false)
-    const issueId = ref<string>(false)
-    const commentId = ref<string>(false)
+    const issueId = ref<string>('')
+    const commentId = ref<string>('')
 
-    eventBus.$on(
-      'toggle-issue-details',
-      (isOpen: boolean, id: string | number) => {
-        if (isOpen) {
-          issueId.value = `${id}`
-        }
-        isIssueDetailsOpen.value = isOpen
+    eventBus.on('toggle-issue-details', (data) => {
+      const { isOpen, id } = data as { isOpen: boolean; id: string | number }
+
+      if (isOpen) {
+        issueId.value = `${id}`
       }
-    )
-    eventBus.$on('toggle-issue-search', (isOpen: boolean) => {
-      isIssueSearchOpen.value = isOpen
+      isIssueDetailsOpen.value = isOpen
     })
-    eventBus.$on('toggle-issue-create', (isOpen: boolean) => {
-      isIssueCreateOpen.value = isOpen
+    eventBus.on('toggle-issue-search', (isOpen) => {
+      isIssueSearchOpen.value = isOpen as boolean
     })
-    eventBus.$on('toggle-issue-delete', (isOpen: boolean) => {
-      isIssueDeleteOpen.value = isOpen
+    eventBus.on('toggle-issue-create', (isOpen) => {
+      isIssueCreateOpen.value = isOpen as boolean
     })
-    eventBus.$on(
-      'toggle-comment-delete',
-      (isOpen: boolean, id: string | number) => {
-        if (isOpen) {
-          commentId.value = `${id}`
-        }
-        isCommentDeleteOpen.value = isOpen
+    eventBus.on('toggle-issue-delete', (isOpen) => {
+      isIssueDeleteOpen.value = isOpen as boolean
+    })
+    eventBus.on('toggle-comment-delete', (data) => {
+      const { isOpen, id } = data as { isOpen: boolean; id: string | number }
+      if (isOpen) {
+        commentId.value = `${id}`
       }
-    )
+      isCommentDeleteOpen.value = isOpen
+    })
 
     const issueDeleteProps = {
       title: 'Are you sure you want to delete this issue?',
       message: "Once you delete, it's gone for good.",
       confirmText: 'Delete issue',
-      variant: 'primary'
+      variant: 'primary',
     }
     const commentDeleteProps = {
       title: 'Are you sure you want to delete this comment?',
       message: "Once you delete, it's gone for good.",
       confirmText: 'Delete comment',
-      variant: 'primary'
+      variant: 'primary',
     }
 
     const confirmIssueDelete = () => {
-      eventBus.$emit('confirm-issue-delete')
+      eventBus.emit('confirm-issue-delete')
     }
     const confirmCommentDelete = () => {
-      eventBus.$emit('confirm-comment-delete', commentId.value)
+      eventBus.emit('confirm-comment-delete', commentId.value)
     }
 
     return {
@@ -125,8 +122,8 @@ export default defineComponent({
       commentDeleteProps,
       confirmIssueDelete,
       confirmCommentDelete,
-      issueId
+      issueId,
     }
-  }
+  },
 })
 </script>

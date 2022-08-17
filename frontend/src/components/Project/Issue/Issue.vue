@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import { Issue, IssuePriority } from '@/types/issue'
 import { getters } from '@/store'
 import { issuePriorityColors } from '@/utils/colors'
@@ -44,18 +44,18 @@ export default defineComponent({
   props: {
     issue: {
       type: Object as () => Issue,
-      required: true
+      required: true,
     },
     index: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const project = computed(getters.project)
     const assignees = computed(() =>
-      props.issue.userIds.map(userId =>
-        project.value.users.find(user => user.id === userId)
+      props.issue.userIds.map((userId) =>
+        project.value.users.find((user) => user.id === userId)
       )
     )
 
@@ -65,19 +65,19 @@ export default defineComponent({
       )
         ? 'arrow-down'
         : 'arrow-up',
-      color: issuePriorityColors[props.issue.priority]
+      color: issuePriorityColors[props.issue.priority],
     }))
 
     const openIssueDetails = () => {
-      eventBus.$emit('toggle-issue-details', true, props.issue.id)
+      eventBus.emit('toggle-issue-details', true, props.issue.id)
     }
 
     return {
       assignees,
       issuePriorityStyles,
-      openIssueDetails
+      openIssueDetails,
     }
-  }
+  },
 })
 </script>
 

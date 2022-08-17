@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 import NavbarLeft from './NavbarLeft.vue'
 import Sidebar from './Sidebar.vue'
 import Resizer from './Resizer.vue'
@@ -17,22 +17,22 @@ export default defineComponent({
   props: {
     expanded: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
     NavbarLeft,
     Sidebar,
-    Resizer
+    Resizer,
   },
   setup(props, { emit }) {
     const handleResize = (isExpanded: boolean) => {
       emit('onResize', isExpanded)
     }
     return {
-      handleResize
+      handleResize,
     }
-  }
+  },
 })
 </script>
 

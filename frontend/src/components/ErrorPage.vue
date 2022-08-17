@@ -16,18 +16,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup() {
     return {}
-  }
+  },
 })
 </script>
 
 <style lang="postcss" scoped>
 .bg {
-  @apply my-0 mx-auto bg;
+  @apply my-0 mx-auto;
   @media (max-height: 680px) {
     padding: 140px 0;
   }

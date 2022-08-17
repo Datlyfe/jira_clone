@@ -3,7 +3,7 @@
     <div class="navbarLeft-content">
       <div class="logoLink">
         <svg
-          class="h-8 w-8 text-textLogo"
+          class="w-8 h-8 text-textLogo"
           viewBox="0 0 32 32"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import eventBus from '@/utils/eventBus'
 import { getters } from '../../store'
 export default defineComponent({
@@ -88,23 +88,23 @@ export default defineComponent({
         icon: 'search',
         tooltip: 'Search issue',
         handler: () => {
-          eventBus.$emit('toggle-issue-search', true)
-        }
+          eventBus.emit('toggle-issue-search', true)
+        },
       },
       {
         icon: 'plus',
         tooltip: 'Create issue',
         handler: () => {
-          eventBus.$emit('toggle-issue-create', true)
-        }
-      }
+          eventBus.emit('toggle-issue-create', true)
+        },
+      },
     ]
 
     return {
       items,
-      currentUser
+      currentUser,
     }
-  }
+  },
 })
 </script>
 

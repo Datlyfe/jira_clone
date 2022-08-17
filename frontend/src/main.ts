@@ -1,28 +1,25 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import vc, { provide } from '@vue/composition-api'
+import vc, { provide } from 'vue'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { apolloClient } from '@/graphql/client'
-import { registerSharedComponents } from '@/plugins/register'
-import { loadSprites } from '@/plugins/loadSvg'
+// import { registerSharedComponents } from '@/plugins/register'
+// import { loadSprites } from '@/plugins/loadSvg'
 
 // import '@/plugins/toast'
-import '@/plugins/tippy'
+import { registerTippy } from '@/plugins/tippy'
 import 'quill/dist/quill.snow.css'
 import '@/main.scss'
 
-Vue.use(vc)
-loadSprites()
-registerSharedComponents()
+// loadSprites()
+// registerSharedComponents()
 
-Vue.config.productionTip = false
+const app = createApp(App)
 
-new Vue({
-  setup() {
-    provide(DefaultApolloClient, apolloClient)
-    return {}
-  },
-  router,
-  render: h => h(App)
-}).$mount('#app')
+app.provide(DefaultApolloClient, apolloClient)
+app.use(router)
+
+registerTippy(app)
+
+app.mount('#app')

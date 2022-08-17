@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import { buttonVariants, tuneColor } from '@/utils/colors'
 
 type variantType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning'
@@ -33,32 +33,32 @@ export default defineComponent({
   props: {
     className: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     variant: {
       type: String as () => variantType,
-      default: 'primary'
+      default: 'primary',
     },
     icon: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     iconSize: {
       type: Number,
-      default: 18
+      default: 18,
     },
     disabled: {
       tpye: Boolean,
-      default: false
+      default: false,
     },
     isWorking: {
       tpye: Boolean,
-      default: false
+      default: false,
     },
     isActive: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props) {
     const getButtonStyles = computed(() => {
@@ -67,14 +67,14 @@ export default defineComponent({
         '--bg-variant': color,
         '--bg-variant-dark': tuneColor.darken(color, 0.1),
         '--bg-variant-light': tuneColor.lighten(color, 0.15),
-        '--primary': buttonVariants['primary']
+        '--primary': buttonVariants['primary'],
       }
     })
 
     return {
-      getButtonStyles
+      getButtonStyles,
     }
-  }
+  },
 })
 </script>
 

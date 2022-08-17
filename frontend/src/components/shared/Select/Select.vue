@@ -31,7 +31,7 @@
             v-bind="{
               ...getOption(optionValue),
               optionValue,
-              remove: removeOptionValue
+              remove: removeOptionValue,
             }"
           />
           <div v-else class="valueMultiItem text-textDarkest">
@@ -99,7 +99,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@vue/composition-api'
+import { defineComponent, ref, computed } from 'vue'
 import Dropdown from './Dropdown.vue'
 import { useOutsideClick } from '../../../hooks/useOutsideClick'
 
@@ -113,59 +113,59 @@ export default defineComponent({
   props: {
     dropdownWidth: {
       type: Number,
-      default: undefined
+      default: undefined,
     },
     variant: {
       type: String,
-      default: 'normal'
+      default: 'normal',
     },
     name: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     customRender: {
       type: Boolean,
-      default: false
+      default: false,
     },
     customRenderOption: {
       type: Boolean,
-      default: false
+      default: false,
     },
     searchable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     value: {
       type: [Array, String, Number],
-      default: undefined
+      default: undefined,
     },
     defaultValue: {
       type: [String, Array, Number],
-      default: undefined
+      default: undefined,
     },
     placeholder: {
       type: String,
-      default: 'Select'
+      default: 'Select',
     },
     invalid: {
       type: Boolean,
-      default: false
+      default: false,
     },
     options: {
       type: Array as () => Array<Option>,
-      required: true
+      required: true,
     },
     isMulti: {
       type: Boolean,
-      default: false
+      default: false,
     },
     withClearValue: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   components: {
-    Dropdown
+    Dropdown,
   },
   setup(props, { emit, root }) {
     const selectRef = ref<HTMLDivElement>(null)
@@ -177,7 +177,7 @@ export default defineComponent({
     const getOption = (
       optionValue: string | number | Array<number | string>
     ) => {
-      return props.options.find(option => option.value === optionValue)
+      return props.options.find((option) => option.value === optionValue)
     }
 
     const getOptionLabel = (
@@ -195,7 +195,7 @@ export default defineComponent({
       newValue: string | number | Array<number | string>
     ) => {
       const areOptionValuesNumbers = props.options.some(
-        option => typeof option.value === 'number'
+        (option) => typeof option.value === 'number'
       )
 
       if (areOptionValuesNumbers) {
@@ -223,7 +223,7 @@ export default defineComponent({
     ) => {
       handleChange(
         (localValue.value as [string | number]).filter(
-          val => val !== optionValue
+          (val) => val !== optionValue
         )
       )
     }
@@ -280,9 +280,9 @@ export default defineComponent({
       deactivateDropdown,
       handleFocusedSelectKeydown,
       handleSearchValueChange,
-      handleChange
+      handleChange,
     }
-  }
+  },
 })
 </script>
 

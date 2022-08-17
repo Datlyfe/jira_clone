@@ -14,39 +14,33 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  onUnmounted,
-  ref,
-  computed
-} from '@vue/composition-api'
+import { defineComponent, onMounted, onUnmounted, ref, computed } from 'vue'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 type ModalVariant = 'center' | 'aside'
 export default defineComponent({
   props: {
     variant: {
       type: String as () => ModalVariant,
-      default: 'center'
+      default: 'center',
     },
     width: {
       type: Number,
-      default: 600
+      default: 600,
     },
     component: {
       type: [Object, String],
-      required: true
+      required: true,
     },
     componentProps: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   setup(props, { emit }) {
     const $modalRef = ref<HTMLDivElement>(null)
     const $rootRef = ref<HTMLDivElement>(null)
     const modalStyles = computed(() => ({
-      '--width': `${props.width}px`
+      '--width': `${props.width}px`,
     }))
     const handleModalClose = (e: string) => emit('close', e)
     const handleConfirm = () => emit('confirm')
@@ -64,9 +58,9 @@ export default defineComponent({
       $rootRef,
       modalStyles,
       handleConfirm,
-      handleModalClose
+      handleModalClose,
     }
-  }
+  },
 })
 </script>
 

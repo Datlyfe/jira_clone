@@ -1,10 +1,8 @@
-import Vue from 'vue'
-import 'tippy.js/dist/tippy.css'
-
+import type { App, Directive } from 'vue'
 import tippy, { Placement, ReferenceElement } from 'tippy.js'
 
-Vue.directive('tippy', {
-  bind: function(el, bind) {
+const tippyDirective: Directive = {
+  mounted: function (el, bind) {
     const { value } = bind
     let offset = [0, 20],
       content = '',
@@ -20,10 +18,13 @@ Vue.directive('tippy', {
     tippy(el, {
       content,
       placement,
-      offset: offset as [number, number]
+      offset: offset as [number, number],
     })
   },
-  unbind: function(el) {
+  unmounted: function (el) {
     ;(el as ReferenceElement)._tippy?.destroy()
-  }
-})
+  },
+}
+
+export const registerTippy = (app: App) =>
+  app.directive('tippy', tippyDirective)

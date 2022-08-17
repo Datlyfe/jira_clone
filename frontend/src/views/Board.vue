@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import appFilters from '@/components/Project/Filters.vue'
 import Lists from '@/components/Project/Lists/Lists.vue'
 import { Filters } from '@/types/filters'
@@ -25,7 +25,7 @@ import { mutations, getters } from '@/store'
 export default defineComponent({
   components: {
     appFilters,
-    Lists
+    Lists,
   },
   setup() {
     const project = computed(getters.project)
@@ -35,9 +35,9 @@ export default defineComponent({
 
     return {
       project,
-      handleFiltersChange
+      handleFiltersChange,
     }
-  }
+  },
 })
 </script>
 

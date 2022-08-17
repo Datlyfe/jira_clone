@@ -38,29 +38,31 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 import { IssuePriority, IssuePriorityCopy } from '@/types/issue'
 import { issuePriorityColors } from '@/utils/colors'
 export default defineComponent({
   props: {
     value: {
       type: String as () => IssuePriority,
-      required: true
+      required: true,
     },
     updateIssue: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
-    const issuePriorityOptions = Object.values(IssuePriority).map(priority => ({
-      value: priority,
-      label: IssuePriorityCopy[priority],
-      icon: [IssuePriority.LOW, IssuePriority.LOWEST].includes(priority)
-        ? 'arrow-down'
-        : 'arrow-up',
-      color: issuePriorityColors[priority]
-    }))
+    const issuePriorityOptions = Object.values(IssuePriority).map(
+      (priority) => ({
+        value: priority,
+        label: IssuePriorityCopy[priority],
+        icon: [IssuePriority.LOW, IssuePriority.LOWEST].includes(priority)
+          ? 'arrow-down'
+          : 'arrow-up',
+        color: issuePriorityColors[priority],
+      })
+    )
     const updateIssuePriority = async (priority: IssuePriority) => {
       try {
         await props.updateIssue({ priority })
@@ -71,9 +73,9 @@ export default defineComponent({
 
     return {
       issuePriorityOptions,
-      updateIssuePriority
+      updateIssuePriority,
     }
-  }
+  },
 })
 </script>
 

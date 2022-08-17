@@ -1,6 +1,8 @@
 @import './fonts.scss';
 @import './assets/css/tailwind.css';
-@import '~toastify-js/src/toastify.css';
+@import 'tippy.js/dist/tippy.css';
+
+// @import '~toastify-js/src/toastify.css';
 
 body {
   line-height: 1.2;
@@ -34,7 +36,6 @@ body {
 .page {
   min-width: 800px;
 }
-
 
 button,
 body,

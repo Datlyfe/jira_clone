@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import xor from 'lodash.xor'
-import { defineComponent, computed, ref } from '@vue/composition-api'
+import { defineComponent, computed, ref } from 'vue'
 import { getters } from '@/store'
 import { Filters } from '@/types/filters'
 import { debounce } from 'throttle-debounce'
@@ -82,7 +82,7 @@ export default defineComponent({
         searchTerm: '',
         userIds: [],
         myOnly: false,
-        recent: false
+        recent: false,
       })
 
     const areFiltersCleared = computed(() => {
@@ -103,9 +103,9 @@ export default defineComponent({
       handleRecent,
       handleReset,
       areFiltersCleared,
-      xor
+      xor,
     }
-  }
+  },
 })
 </script>
 

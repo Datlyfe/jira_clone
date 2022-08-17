@@ -87,34 +87,34 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import { getters } from '../../../../store'
 import Omit from 'lodash.omit'
 export default defineComponent({
   props: {
     reporterId: {
       type: String,
-      required: true
+      required: true,
     },
     userIds: {
       type: Array as () => Array<string>,
-      required: true
+      required: true,
     },
     updateIssue: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const project = computed(getters.project)
-    const userOptions = project.value.users.map(user => ({
+    const userOptions = project.value.users.map((user) => ({
       label: user.name,
       value: user.id,
-      user
+      user,
     }))
     const getUserById = (userId: string) =>
       Omit(
-        project.value.users.find(user => user.id === userId),
+        project.value.users.find((user) => user.id === userId),
         ['__typename']
       )
     const updateIssueReporter = async (userId: string) => {
@@ -135,9 +135,9 @@ export default defineComponent({
     return {
       userOptions,
       updateIssueReporter,
-      updateIssueAssignees
+      updateIssueAssignees,
     }
-  }
+  },
 })
 </script>
 

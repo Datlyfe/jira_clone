@@ -114,7 +114,7 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .sectionTitle {
-  @apply text-textMedium font-bold text-xs uppercase pb-3;
+  /* @apply text-textMedium font-bold text-xs uppercase pb-3; */
 }
 </style>
 

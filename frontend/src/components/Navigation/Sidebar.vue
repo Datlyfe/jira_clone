@@ -1,13 +1,13 @@
 <template>
-  <div :style="{ width: `${sidebarWidth}px` }" class="sidebar">
-    <div class="sidebar-content">
+  <div :style="{ width: `${sidebarWidth}px` }" class="relative h-full sidebar">
+    <div class="px-4 sidebar-content bg-backgroundLightest">
       <div class="flex px-1 py-6">
         <j-icon name="project-avatar" :size="40"></j-icon>
         <div class="pt-1 pl-2">
-          <div class="mb-1 font-medium text-textDark text-15">
+          <div class="mb-1 font-medium text-textDark text-[15px]">
             {{ project.name }}
           </div>
-          <div class="text-textMedium text-13">
+          <div class="text-textMedium text-[13px]">
             {{ ProjectCategoryCopy[project.category] }} project
           </div>
         </div>
@@ -17,18 +17,27 @@
         <component
           :is="link.to ? 'router-link' : 'div'"
           :to="link.to ? link.to : '/not-implemented'"
-          exact
-          exact-active-class="active"
+          exact-active-class="text-textLink bg-backgroundLight"
           tag="a"
-          class="link"
-          :class="`${!link.to ? 'not-allowed' : 'allowed'}`"
+          class="relative flex items-center px-3 py-2 rounded-sm link text-textDarkest"
+          :class="`${
+            !link.to ? 'cursor-not-allowed' : 'hover:bg-backgroundLight'
+          }`"
         >
           <j-icon :name="link.icon" :size="24" class="mr-4"></j-icon>
 
-          <div class="pt-px text-15">{{ link.name }}</div>
-          <div v-if="!link.to" class="not-implemented">Not implemented</div>
+          <div class="pt-px text-[15px]">{{ link.name }}</div>
+          <div
+            v-if="!link.to"
+            class="absolute inline-block text-xs font-bold uppercase rounded-sm opacity-0 not-implemented bg-backgroundMedium text-textDark"
+          >
+            Not implemented
+          </div>
         </component>
-        <div v-if="index == 1" class="divider"></div>
+        <div
+          v-if="index == 1"
+          class="pt-4 mt-4 divider border-borderLight"
+        ></div>
       </div>
     </div>
   </div>
@@ -61,14 +70,12 @@ export default defineComponent({
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .sidebar {
-  @apply h-full relative;
   will-change: width;
   transition: width 300ms cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 .sidebar-content {
-  @apply px-4 bg-backgroundLightest;
   height: 100%;
   left: 0px;
   min-width: 240px;
@@ -85,27 +92,11 @@ export default defineComponent({
   z-index: -1;
 }
 
-.link {
-  @apply flex items-center relative py-2 px-3 rounded-sm text-textDarkest;
-}
 .link:hover .not-implemented {
-  @apply opacity-100;
-}
-.active {
-  @apply text-textLink bg-backgroundLight;
-}
-.allowed:hover {
-  @apply bg-backgroundLight;
-}
-.not-allowed {
-  cursor: not-allowed;
-}
-.divider {
-  @apply mt-4 pt-4  border-borderLight;
+  opacity: 1;
 }
 
 .not-implemented {
-  @apply bg-backgroundMedium text-textDark inline-block absolute rounded-sm uppercase opacity-0 text-xs font-bold;
   top: 7px;
   left: 40px;
   width: 140px;

@@ -141,7 +141,7 @@
             Object.values(IssuePriority).map((p) => ({
               value: p,
               label: IssuePriorityCopy[p],
-              icon: p < 3 ? 'arrow-down' : 'arrow-up',
+              icon: parseInt(p) < 3 ? 'arrow-down' : 'arrow-up',
               color: issuePriorityColors[p],
             }))
           "
@@ -306,22 +306,27 @@ export default defineComponent({
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .formField {
-  @apply mt-5;
+  margin-top: 20px;
 }
 .sep {
-  @apply mt-5 border-backgroundLightest;
+  margin-top: 20px;
+  background-color: rgb(244 245 247);
 }
 .formFieldLabel {
-  @apply block pb-1-25 text-textMedium text-13 font-medium;
+  display: block;
+  padding-bottom: 5px;
+  color: rgb(94 108 132);
+  font-size: 13px;
+  font-weight: 500;
 }
 .formFieldTip {
-  @apply pt-1-5 text-textMedium text-13;
+  padding-top: 6px;
+  color: rgb(94 108 132);
+  font-size: 13px;
 }
-</style>
 
-<style lang="scss">
 .descriptionEditor .ql-editor {
   min-height: 110px;
 }

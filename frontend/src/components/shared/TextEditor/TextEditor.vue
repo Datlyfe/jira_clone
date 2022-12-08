@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue'
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import Quill from 'quill'
 import { quillConfig } from './editor'
 export default defineComponent({
@@ -38,9 +38,11 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const quill = ref<Quill>(null)
-    const editorRef = ref<HTMLDivElement>(null)
-    const initialValue = ref<string>(props.value || props.defaultValue)
+    console.log(props)
+
+    const quill = ref<Quill>()
+    const editorRef = ref<HTMLDivElement>()
+    const initialValue = ref<string>(props.value ?? props.defaultValue ?? '')
 
     const initQuill = () => {
       return new Quill(editorRef.value as HTMLDivElement, {
@@ -53,9 +55,9 @@ export default defineComponent({
       emit('changeMode', 'write')
     }
 
-    const insertValue = (quill: Quill, value: string) => {
-      quill.clipboard.dangerouslyPasteHTML(0, value)
-      quill.blur()
+    const insertValue = (value: string) => {
+      quill.value?.clipboard.dangerouslyPasteHTML(0, value)
+      quill.value?.blur()
     }
 
     const getHTMLValue = () =>
@@ -68,27 +70,32 @@ export default defineComponent({
     watch(
       () => props.mode,
       (_, from) => {
-        if (from == 'write') {
+        if (from === 'write') {
           quill.value?.setText('')
-          insertValue(quill.value as Quill, props.value)
-          initialValue.value = props.value
+          insertValue(props.value ?? '')
+          initialValue.value = props.value ?? ''
         }
-      },
-      {
-        lazy: true,
       }
     )
 
     onMounted(() => {
-      quill.value = initQuill()
-      insertValue(quill.value, initialValue.value)
-      quill.value.on('text-change', handleContentsChange)
-      return () => {
+      try {
+        quill.value = initQuill()
+        insertValue(initialValue.value)
+        quill.value.on('text-change', handleContentsChange)
+      } catch (error) {
+        console.log(error)
+      }
+    })
+
+    onBeforeUnmount(() => {
+      {
         quill.value?.off('text-change', handleContentsChange)
         // eslint-disable-next-line
         quill.value = null as any
       }
     })
+
     return {
       editorRef,
       getHTMLValue,

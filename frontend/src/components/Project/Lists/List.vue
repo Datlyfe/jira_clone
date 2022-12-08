@@ -1,11 +1,11 @@
 <template>
   <div class="list">
-    <div class="px-3 pb-4 pt-3 uppercase text-textMedium text-13 truncate">
+    <div class="px-3 pt-3 pb-4 uppercase truncate text-textMedium text-13">
       {{ IssueStatusCopy[status] }}
-      <span class="lowercase text-13">{{ formatedIssuesCount }}</span>
+      <span class="lowercase text-13">{{ formattedIssuesCount }}</span>
     </div>
     <div class="h-full px-2">
-      <Container
+      <!-- <Container
         class="h-full"
         group-name="board"
         @drop="onDrop"
@@ -13,11 +13,17 @@
         drop-class="card-ghost-drop"
         :get-child-payload="getCardPayload"
         :drop-placeholder="dropPlaceholderOptions"
-      >
-        <Draggable v-for="(issue, index) in filteredListIssues" :key="issue.id">
-          <Issue :issue="issue" :index="index" />
-        </Draggable>
-      </Container>
+      > -->
+      <!-- <Draggable v-for="(issue, index) in filteredListIssues" :key="issue.id"> -->
+      <div class="h-full">
+        <Issue
+          v-for="(issue, index) in filteredListIssues"
+          :issue="issue"
+          :index="index"
+        />
+      </div>
+      <!-- </Draggable> -->
+      <!-- </Container> -->
     </div>
   </div>
 </template>
@@ -69,7 +75,7 @@ const filterIssues = (
 export default defineComponent({
   props: {
     status: {
-      type: String,
+      type: String as () => IssueStatus,
       required: true,
     },
   },
@@ -94,7 +100,7 @@ export default defineComponent({
       getSortedListIssues(project.value.issues, props.status)
     )
 
-    const formatedIssuesCount = computed(() => {
+    const formattedIssuesCount = computed(() => {
       if (allListIssues.value.length !== filteredListIssues.value.length) {
         return `${filteredListIssues.value.length} of ${allListIssues.value.length}`
       }
@@ -125,7 +131,7 @@ export default defineComponent({
       getCardPayload,
       dropPlaceholderOptions,
       filteredListIssues,
-      formatedIssuesCount,
+      formattedIssuesCount,
       IssueStatusCopy,
     }
   },
@@ -134,7 +140,7 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .list {
-  @apply mr-2 flex flex-col  rounded-sm bg-backgroundLightest flex-shrink-0;
+  /* @apply mr-2 flex flex-col  rounded-sm bg-backgroundLightest flex-shrink-0; */
   width: calc(100% / 4 - 8px);
   min-height: 400px;
   min-width: 200px;

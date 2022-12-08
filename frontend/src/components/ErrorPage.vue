@@ -1,7 +1,7 @@
 <template>
   <div class="pt-16">
-    <div class="bg">
-      <div class="box">
+    <div class="my-0 mx-auto sm:px-[140px]">
+      <div class="relative mx-auto max-w-[480px] rounded-[3px]">
         <img src="@/assets/img/mountains.jpg" alt="" />
         <h1 class="mb-4 text-3xl">There’s been a glitch…</h1>
         <p>
@@ -24,18 +24,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="postcss" scoped>
-.bg {
-  @apply my-0 mx-auto;
-  @media (max-height: 680px) {
-    padding: 140px 0;
-  }
-}
-.box {
-  position: relative;
-  margin: 0 auto;
-  max-width: 480px;
-  border-radius: 3px;
-}
-</style>

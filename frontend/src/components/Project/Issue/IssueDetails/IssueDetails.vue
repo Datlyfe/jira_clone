@@ -119,9 +119,11 @@ import { getters, mutations } from '@/store'
 import eventBus from '@/utils/eventBus'
 import { deleteComment } from '@/graphql/queries/comment'
 import { updateArrayItemById } from '../../../../utils/dnd'
+import { useRoute, useRouter } from 'vue-router'
 
-const sortByNewest = (items: any[] = [], sortField: string) =>
-  items.sort((a, b) => -a[sortField].localeCompare(b[sortField]))
+const sortByNewest = (items: any[] = [], sortField: string) => {
+  return [...items].sort((a, b) => -a[sortField].localeCompare(b[sortField]))
+}
 
 export default defineComponent({
   components: {
@@ -148,7 +150,10 @@ export default defineComponent({
       default: true,
     },
   },
-  setup(props, { root, emit }) {
+  setup(props, { emit }) {
+    const router = useRouter()
+    const route = useRoute()
+
     const issueCopy = ref<Issue>()
     const project = computed(getters.project)
     const currentUser = computed(getters.currentUser)
@@ -182,7 +187,7 @@ export default defineComponent({
     const copyIssueLink = async () => {
       const path =
         window.location.origin +
-        root.$router.resolve({
+        router.resolve({
           name: 'issue',
           params: { issueId: `${props.issueId}` },
         }).href
@@ -191,7 +196,7 @@ export default defineComponent({
     }
 
     const goFullScreen = () => {
-      root.$router.push({
+      router.push({
         name: 'issue',
         params: { issueId: `${props.issueId}` },
       })
@@ -242,10 +247,10 @@ export default defineComponent({
         })
       }
       eventBus.emit('toggle-issue-delete', false)
-      eventBus.emit('toggle-issue-details', false)
+      eventBus.emit('toggle-issue-details', { isOpen: false })
       eventBus.emit('toggle-issue-search', false)
-      if (root.$route.name != 'board') {
-        root.$router.replace({ name: 'board' })
+      if (route.name != 'board') {
+        router.replace({ name: 'board' })
       }
     }
 
@@ -294,16 +299,16 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .formField {
-  @apply mt-5;
+  /* @apply mt-5; */
 }
 .sep {
-  @apply mt-5 border-backgroundLightest;
+  /* @apply mt-5 border-backgroundLightest; */
 }
 .formFieldLabel {
-  @apply block pb-1-25 text-textMedium text-13 font-medium;
+  /* @apply block pb-1-25 text-textMedium text-13 font-medium; */
 }
 .formFieldTip {
-  @apply pt-1-5 text-textMedium text-13;
+  /* @apply pt-1-5 text-textMedium text-13; */
 }
 </style>
 

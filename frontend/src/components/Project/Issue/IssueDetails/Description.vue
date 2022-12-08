@@ -6,9 +6,8 @@
       :mode="mode"
       :value="initialValue"
       ref="editor"
-      placeholder="Describe the issue"
     />
-    <div v-if="!readOnly" class="pt-3 flex items-center">
+    <div v-if="!readOnly" class="flex items-center pt-3">
       <j-button
         :isWorking="isWorking"
         @click="updateIssueDescription"
@@ -37,7 +36,7 @@ export default defineComponent({
   setup(props) {
     const mode = ref<string>('read')
     const isWorking = ref<boolean>(false)
-    const editor = ref<HTMLDivElement>(null)
+    const editor = ref<HTMLDivElement>()
 
     const readOnly = computed(() => mode.value == 'read')
 

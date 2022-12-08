@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full inline-block mt-4 -ml-2 h-10">
+  <div class="inline-block w-full h-10 mt-4 -ml-2">
     <j-textarea
       placeholder="Short summary"
       class="title"
-      @input="(e) => (title = e)"
+      @input="(e:string) => (title = e)"
       @blur="updateIssueDescription"
       :value="value"
     />
@@ -25,7 +25,7 @@ export default defineComponent({
   },
   setup(props) {
     const isWorking = ref<boolean>(false)
-    const title = ref<HTMLDivElement>(props.value)
+    const title = ref<string>(props.value)
 
     const updateIssueDescription = async () => {
       try {
@@ -49,6 +49,6 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .title {
   border-color: transparent !important;
-  @apply h-auto font-medium text-2xl text-textDarkest;
+  /* @apply h-auto font-medium text-2xl text-textDarkest; */
 }
 </style>

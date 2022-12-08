@@ -1,7 +1,9 @@
 <template>
   <aside class="navbarLeft">
-    <div class="navbarLeft-content">
-      <div class="logoLink">
+    <div
+      class="flex flex-col flex-shrink-0 h-screen pt-6 pb-5 w-navbarLeft bg-primary"
+    >
+      <div class="relative flex items-center justify-center pb-2">
         <svg
           class="w-8 h-8 text-textLogo"
           viewBox="0 0 32 32"
@@ -47,14 +49,27 @@
         </svg>
       </div>
 
-      <div v-for="(item, index) in items" :key="index" class="item">
-        <div @click="item.handler" v-tippy="item.tooltip" class="itemIcon">
+      <div
+        v-for="(item, index) in items"
+        :key="index"
+        class="relative w-full flex items-center justify-center min-h-[42px]"
+      >
+        <div
+          @click="item.handler"
+          v-tippy="item.tooltip"
+          class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 select-none transition-colors duration-100 cursor-pointer hover:bg-[rgb(28, 99, 206)]"
+        >
           <j-icon class="text-white" :name="item.icon" :size="24"></j-icon>
         </div>
       </div>
       <div class="flex-auto"></div>
-      <div class="item">
-        <div v-tippy="currentUser.name" class="itemIcon">
+      <div
+        class="relative w-full flex items-center justify-center min-h-[42px]"
+      >
+        <div
+          v-tippy="currentUser.name"
+          class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 select-none transition-colors duration-100 cursor-pointer hover:bg-[rgb(28, 99, 206)]"
+        >
           <j-avatar
             :name="currentUser.name"
             :avatarUrl="currentUser.avatarUrl"
@@ -62,8 +77,13 @@
           ></j-avatar>
         </div>
       </div>
-      <div class="item">
-        <div v-tippy="`About`" class="itemIcon">
+      <div
+        class="relative w-full flex items-center justify-center min-h-[42px]"
+      >
+        <div
+          v-tippy="`About`"
+          class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 select-none transition-colors duration-100 cursor-pointer hover:bg-[rgb(28, 99, 206)]"
+        >
           <j-icon
             fill="transparant"
             class="text-white"
@@ -107,23 +127,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="postcss" scoped>
-.navbarLeft-content {
-  @apply h-screen w-navbarLeft pt-6 pb-5 flex flex-col bg-primary flex-shrink-0;
-}
-
-.logoLink {
-  @apply relative pb-2 flex items-center justify-center;
-}
-.item {
-  @apply relative w-full flex items-center justify-center;
-  min-height: 42px;
-}
-.itemIcon {
-  @apply w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 select-none transition-colors duration-100 cursor-pointer;
-}
-.itemIcon:hover {
-  background: rgb(28, 99, 206);
-}
-</style>

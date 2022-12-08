@@ -4,12 +4,12 @@
       <p class="pb-3 text-15 text-textDarkest">
         {{ issue.title }}
       </p>
-      <div class="flex justify-between items-center">
+      <div class="flex items-center justify-between">
         <div class="flex items-center">
           <j-icon
             :name="issue.type"
             :size="20"
-            class="text-textMedium mr-1"
+            class="mr-1 text-textMedium"
           ></j-icon>
 
           <j-icon
@@ -21,11 +21,11 @@
         <div class="flex flex-row-reverse ml-1">
           <j-avatar
             v-for="user in assignees"
-            :key="user.id"
+            :key="user?.id"
             :size="24"
-            :avatarUrl="user.avatarUrl"
-            :name="user.name"
-            class="shadow-outline-white -ml-1"
+            :avatarUrl="user?.avatarUrl"
+            :name="user?.name"
+            class="-ml-1 shadow-outline-white"
           />
         </div>
       </div>
@@ -69,7 +69,10 @@ export default defineComponent({
     }))
 
     const openIssueDetails = () => {
-      eventBus.emit('toggle-issue-details', true, props.issue.id)
+      eventBus.emit('toggle-issue-details', {
+        isOpen: true,
+        id: props.issue.id,
+      })
     }
 
     return {
@@ -88,11 +91,11 @@ export default defineComponent({
   margin-bottom: 5px;
 }
 .issue {
-  @apply rounded-sm bg-white  transition-all duration-100 select-none;
+  /* @apply rounded-sm bg-white  transition-all duration-100 select-none; */
   padding: 10px;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 2px 0px;
 }
 .issue:hover {
-  @apply bg-backgroundLight;
+  /* @apply bg-backgroundLight; */
 }
 </style>

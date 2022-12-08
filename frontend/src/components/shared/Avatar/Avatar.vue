@@ -1,10 +1,6 @@
 <template>
   <div :style="getImageStyle" v-if="avatarUrl" />
-  <div v-else :style="getLetterStyle" class="letter">
-    <span v-if="!empty">
-      <slot />
-    </span>
-  </div>
+  <div v-else :style="getLetterStyle" class="letter"></div>
 </template>
 
 <script lang="ts">
@@ -66,9 +62,9 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .letter {
-  @apply bg-primary inline-block rounded-sm uppercase text-white;
+  /* @apply bg-primary inline-block rounded-sm uppercase text-white; */
 }
 .letter > span {
-  @apply flex items-center justify-center h-full;
+  /* @apply flex items-center justify-center h-full; */
 }
 </style>

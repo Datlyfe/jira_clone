@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue, { App } from 'vue'
 import Avatar from '@/components/shared/Avatar/Avatar.vue'
 import Breadcrumbs from '@/components/shared/Breadcrumbs/Breadcrumbs.vue'
 import Button from '@/components/shared/Button/Button.vue'
@@ -16,10 +16,10 @@ const sharedComponents = [
   Input,
   Select,
   TextEditor,
-  Textarea
+  Textarea,
 ]
 
-export const registerSharedComponents = () => {
+export const registerSharedComponents = (app: App) => {
   // eslint-disable-next-line
-  sharedComponents.forEach((c: any) => Vue.component(c.name, c))
+  sharedComponents.forEach((c: any) => app.component(c.name, c))
 }

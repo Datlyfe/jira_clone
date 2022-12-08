@@ -27,8 +27,8 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const elementRef = ref<HTMLTextAreaElement>(null)
-    const handleInput = (e: InputEvent) =>
+    const elementRef = ref<HTMLTextAreaElement>()
+    const handleInput = (e: Event) =>
       emit('input', (e.target as HTMLTextAreaElement).value)
     onMounted(() => {
       autosize(elementRef.value as HTMLElement)
@@ -49,13 +49,13 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .textarea {
   border: 1px solid transparent;
-  @apply border-borderLightest;
+  /* @apply border-borderLightest; */
 }
 .textarea:hover:not(:focus) {
-  @apply bg-backgroundLight;
+  /* @apply bg-backgroundLight; */
 }
 .textarea:focus {
-  @apply bg-white border border-borderInputFocus;
+  /* @apply bg-white border-default border-borderInputFocus; */
   box-shadow: 0 0 0 1px #4c9aff;
 }
 </style>

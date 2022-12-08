@@ -22,9 +22,9 @@
 
       <div v-if="!isValueEmpty && isMulti" class="valueMulti text-textDarkest">
         <div
-          class="my-1 mx-1 flex items-center"
+          class="flex items-center mx-1 my-1"
           v-for="optionValue in localValue"
-          :key="optionValue"
+          :key="(optionValue as any)"
         >
           <slot
             v-if="customRender"
@@ -51,7 +51,7 @@
           </div>
         </div>
 
-        <div class="addMore m-1">
+        <div class="m-1 addMore">
           <svg
             class="icon"
             viewBox="0 0 24 24"
@@ -99,7 +99,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, nextTick } from 'vue'
 import Dropdown from './Dropdown.vue'
 import { useOutsideClick } from '../../../hooks/useOutsideClick'
 
@@ -167,22 +167,18 @@ export default defineComponent({
   components: {
     Dropdown,
   },
-  setup(props, { emit, root }) {
-    const selectRef = ref<HTMLDivElement>(null)
-    const dropdownRef = ref<HTMLDivElement>(null)
+  setup(props, { emit }) {
+    const selectRef = ref<HTMLDivElement>()
+    const dropdownRef = ref<HTMLDivElement>()
     const isDropdownOpen = ref<boolean>(false)
     const searchValue = ref<string>('')
     const stateValue = ref(props.defaultValue || (props.isMulti ? [] : null))
 
-    const getOption = (
-      optionValue: string | number | Array<number | string>
-    ) => {
+    const getOption = (optionValue: any) => {
       return props.options.find((option) => option.value === optionValue)
     }
 
-    const getOptionLabel = (
-      optionValue: string | number | Array<number | string>
-    ) => {
+    const getOptionLabel = (optionValue: any) => {
       return (getOption(optionValue) || { label: '' }).label
     }
     const isControlled = computed(() => props.value != undefined)
@@ -218,9 +214,7 @@ export default defineComponent({
       emit('change', preserveValueType(newValue))
     }
 
-    const removeOptionValue = (
-      optionValue: string | number | Array<number | string>
-    ) => {
+    const removeOptionValue = (optionValue: any) => {
       handleChange(
         (localValue.value as [string | number]).filter(
           (val) => val !== optionValue
@@ -249,12 +243,12 @@ export default defineComponent({
     const deactivateDropdown = async () => {
       isDropdownOpen.value = false
       searchValue.value = ''
-      await root.$nextTick()
+      await nextTick()
       selectRef.value && selectRef.value.focus()
     }
     const activateDropdown = async () => {
       isDropdownOpen.value = true
-      await root.$nextTick()
+      await nextTick()
       selectRef.value && selectRef.value.blur()
       // eslint-disable-next-line
       props.searchable && (dropdownRef.value as any).$refs.inputRef.focus()
@@ -374,13 +368,13 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .select.normal {
-  @apply w-full px-2 border border-borderLightest bg-backgroundLightest;
+  /* @apply w-full px-2 border-borderLightest bg-backgroundLightest; */
 }
 .select.normal:hover {
-  @apply bg-backgroundLight;
+  /* @apply bg-backgroundLight; */
 }
 .select.normal:focus {
-  @apply border border-borderInputFocus bg-white text-borderInputFocus;
+  /* @apply border-default border-borderInputFocus bg-white text-borderInputFocus; */
   box-shadow: 0 0 0 1px currentColor;
 }
 

@@ -1,7 +1,7 @@
 <template>
-  <div ref="$rootRef" class="scrollOverlay">
+  <div ref="rootRef" class="scrollOverlay">
     <div :class="['clickableOverlay', variant]">
-      <div ref="$modalRef" :style="modalStyles" :class="['modal', variant]">
+      <div ref="modalRef" :style="modalStyles" :class="['modal', variant]">
         <component
           @close="$emit('close')"
           @confirm="$emit('confirm')"
@@ -37,15 +37,15 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const $modalRef = ref<HTMLDivElement>(null)
-    const $rootRef = ref<HTMLDivElement>(null)
+    const modalRef = ref<HTMLDivElement>()
+    const rootRef = ref<HTMLDivElement>()
     const modalStyles = computed(() => ({
       '--width': `${props.width}px`,
     }))
     const handleModalClose = (e: string) => emit('close', e)
     const handleConfirm = () => emit('confirm')
 
-    useOutsideClick($rootRef, $modalRef, handleModalClose)
+    useOutsideClick(rootRef, modalRef, handleModalClose)
     onMounted(() => {
       document.body.style.overflow = 'hidden'
     })
@@ -54,8 +54,8 @@ export default defineComponent({
     })
 
     return {
-      $modalRef,
-      $rootRef,
+      modalRef,
+      rootRef,
       modalStyles,
       handleConfirm,
       handleModalClose,

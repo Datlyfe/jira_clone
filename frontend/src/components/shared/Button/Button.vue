@@ -2,9 +2,8 @@
   <button
     type="button"
     v-bind="$attrs"
-    v-on="$listeners"
     :class="[variant, { iconOnly: !$slots.default }, { isActive }]"
-    class="button"
+    class="inline-flex items-center justify-center h-8 px-3 leading-none align-middle transition-all duration-100 rounded-sm appearance-none cursor-pointer select-none whitespace-nowrap"
     :disabled="disabled"
     :style="getButtonStyles"
   >
@@ -78,43 +77,45 @@ export default defineComponent({
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .button {
-  @apply inline-flex items-center justify-center h-8 align-middle leading-none whitespace-no-wrap rounded-sm transition-all duration-100 appearance-none cursor-pointer select-none px-3;
   font-size: 14.5px;
   &.iconOnly {
-    @apply px-2;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }
 
 .secondary,
 .empty {
-  @apply text-textDark font-normal;
+  font-weight: 400;
+  color: rgb(66 82 110);
 }
 .secondary:not(:disabled):hover,
 .empty:not(:disabled):hover {
-  @apply bg-backgroundLight;
+  background-color: rgb(235 236 240);
 }
 .secondary:not(:disabled):active,
 .empty:not(:disabled):active {
-  @apply bg-backgroundLightPrimary;
+  background-color: rgb(210 229 254);
   color: var(--primary);
 }
 
 .button:disabled {
-  @apply opacity-50 cursor-default pointer-events-none;
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
 }
 
 .withPadding {
-  @apply pl-2;
+  padding-left: 8px;
 }
 
 .isActive {
-  @apply text-textLink bg-backgroundLightPrimary;
+  color: rgb(0 82 204);
+  background-color: rgb(210 229 254);
 }
-</style>
 
-<style lang="scss" scoped>
 .primary,
 .success,
 .danger,

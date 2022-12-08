@@ -1,5 +1,5 @@
 <template>
-  <svg v-on="$listeners" :style="iconStyles">
+  <svg v-bind="$attrs" :style="iconStyles">
     <use
       xmlns:xlink="http://www.w3.org/1999/xlink"
       :xlink:href="'#' + name"

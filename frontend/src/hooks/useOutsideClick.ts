@@ -2,8 +2,8 @@
 import { Ref, ref, onMounted, onUnmounted } from 'vue'
 
 export const useOutsideClick = (
-  $root: Ref<HTMLElement | null>,
-  $bound: Ref<HTMLElement | null>,
+  $root: Ref<HTMLElement | undefined>,
+  $bound: Ref<HTMLElement | undefined>,
   onOutsideClick: Function
 ) => {
   const handleClickOutside = (e: MouseEvent) => {
@@ -17,18 +17,18 @@ export const useOutsideClick = (
     }
   }
   onMounted(() => {
-    ;($root.value as HTMLElement).addEventListener(
+    ;($root.value as HTMLElement)?.addEventListener(
       'mousedown',
       handleClickOutside
     )
-    ;($root.value as HTMLElement).addEventListener('keydown', handleKeydown)
+    ;($root.value as HTMLElement)?.addEventListener('keydown', handleKeydown)
   })
 
   onUnmounted(() => {
-    ;($root.value as HTMLElement).removeEventListener(
+    ;($root.value as HTMLElement)?.removeEventListener(
       'mousedown',
       handleClickOutside
     )
-    ;($root.value as HTMLElement).removeEventListener('keydown', handleKeydown)
+    ;($root.value as HTMLElement)?.removeEventListener('keydown', handleKeydown)
   })
 }

@@ -16,7 +16,7 @@
           :value="projectUpdateDTO.name"
           id="name"
           placeholder="Project name"
-          @input="(v) => (projectUpdateDTO.name = v)"
+          @input="(v:string) => (projectUpdateDTO.name = v)"
         />
       </div>
       <div class="pt-5">
@@ -25,7 +25,7 @@
           :value="projectUpdateDTO.url"
           id="url"
           placeholder="URL"
-          @input="(v) => (projectUpdateDTO.url = v)"
+          @input="(v:string) => (projectUpdateDTO.url = v)"
         />
       </div>
       <div class="pt-5">
@@ -34,7 +34,7 @@
           placeholder="No description"
           class="text-15 bg-backgroundLightest"
           :value="projectUpdateDTO.description"
-          @input="(v) => (projectUpdateDTO.description = v)"
+          @input="(v:string) => (projectUpdateDTO.description = v)"
         />
         <div class="tip">
           Describe the project in as much detail as you'd like.
@@ -46,7 +46,7 @@
           :value="projectUpdateDTO.category"
           searchable
           :options="projectCategoryOptions"
-          @change="(v) => (projectUpdateDTO.category = v)"
+          @change="(v:ProjectCategory) => (projectUpdateDTO.category = v)"
         />
       </div>
       <div class="pt-7">
@@ -136,9 +136,9 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .label {
-  @apply pb-2 font-medium text-13 text-textMedium block;
+  /* @apply pb-2 font-medium text-13 text-textMedium block; */
 }
 .tip {
-  @apply pt-1-5 text-textMedium text-13;
+  /* @apply pt-1-5 text-textMedium text-13; */
 }
 </style>

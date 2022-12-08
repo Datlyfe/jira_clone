@@ -1,5 +1,9 @@
 @import './fonts.scss';
-@import './assets/css/tailwind.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import 'tippy.js/dist/tippy.css';
 
 // @import '~toastify-js/src/toastify.css';

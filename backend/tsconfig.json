@@ -24,7 +24,7 @@
       "*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["node", "jest"],
+    "types": ["node"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -32,5 +32,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.ts", "xd.ts"]
+  "include": ["./src/**/*.ts",]
 }

@@ -20,7 +20,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql-middleware-sentry": "^3.2.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "module-alias": "^2.2.2",
     "node-cron": "^2.0.3",
     "pg": "^7.18.1",

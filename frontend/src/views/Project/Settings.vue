@@ -1,7 +1,7 @@
 <template>
-  <div class="pr-6 py-8 pl-10 h-full w-full flex flex-col">
+  <div class="flex flex-col w-full h-full py-8 pl-10 pr-6">
     <j-breadcrumbs :items="['Projects', project.name, 'Project Details']" />
-    <header class="mt-3 flex justify-between text-textDarkest">
+    <header class="flex justify-between mt-3 text-textDarkest">
       <div class="text-2xl font-medium">Project Details</div>
     </header>
     <form @submit.prevent style="max-width:640px" autocomplete="off" novalidate>
@@ -107,7 +107,6 @@ export default defineComponent({
         await mutate({ project: projectUpdateDTO } as any)
         const res = await refetch()
         if (res.data) {
-          console.log(res.data)
           mutations.setProject(res.data.getProjectWithUsersAndIssues)
         }
         successToast('Changes have been saved successfully.').showToast()

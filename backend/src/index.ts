@@ -14,6 +14,7 @@ import { buildSchema } from "type-graphql";
 import createDatabaseConnection from "@/database/createConnection";
 import { RESOLVERS } from "@/gql";
 import { apolloServerSentryPlugin } from "@/gql/plugins/sentry";
+import { formatError } from "@/errors/gqlError";
 
 const PORT = process.env.PORT || 5001;
 
@@ -41,6 +42,7 @@ const establishDatabaseConnection = async (): Promise<void> => {
 const initExpressGraphql = async () => {
   const schema = await buildSchema({
     resolvers: RESOLVERS,
+    validate: { forbidUnknownValues: false },
   }).catch((err) => console.log(err));
 
   if (!schema) {
@@ -52,6 +54,7 @@ const initExpressGraphql = async () => {
 
   const gqlServer = new ApolloServer({
     schema,
+    formatError,
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer }),
       apolloServerSentryPlugin,
@@ -67,7 +70,9 @@ const initExpressGraphql = async () => {
     "/graphql",
     cors(),
     json(),
-    expressMiddleware(gqlServer),
+    expressMiddleware(gqlServer, {
+      context: async ({ req, res }) => ({ req, res }),
+    }),
     SentryHandlers.errorHandler()
   );
 

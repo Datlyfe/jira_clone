@@ -12,7 +12,6 @@ class CommentResolver {
   async createComment(
     @Arg("comment") commentInput: CommentInput
   ): Promise<Comment | null> {
-    console.log(commentInput);
     return await createEntity(Comment, commentInput);
   }
   @UseMiddleware([IsAuth, ErrorInterceptor])

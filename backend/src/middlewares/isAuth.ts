@@ -13,7 +13,7 @@ export const IsAuth: MiddlewareFn<GQLContext> = async ({ context }, next) => {
   if (!userId) {
     throw new InvalidTokenError("Authentication token is invalid.");
   }
-  const user = await User.findOne(userId);
+  const user = await User.findOneBy({ id: userId });
   if (!user) {
     throw new InvalidTokenError(
       "Authentication token is invalid: User not found."

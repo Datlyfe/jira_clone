@@ -1,33 +1,44 @@
-import * as Sentry from "@sentry/node";
-import { ApolloServerPlugin } from "apollo-server-plugin-base";
-import { GQLContext } from "@/types/context";
-export const apolloServerSentryPlugin:ApolloServerPlugin = {
-  requestDidStart() {
+import { captureException, withScope } from "@sentry/node";
+import type { ApolloServerPlugin } from "@apollo/server";
+
+export const apolloServerSentryPlugin: ApolloServerPlugin = {
+  async requestDidStart() {
     return {
-      didEncounterErrors(rc) {
-        Sentry.withScope((scope) => {
-          scope.addEventProcessor((event) =>
-            Sentry.Handlers.parseRequest(event, (rc.context as GQLContext).req)
-          );
+      async didEncounterErrors(ctx) {
+        if (!ctx.operation) {
+          for (const err of ctx.errors) {
+            withScope((scope) => {
+              scope.setExtra("query", ctx.request.query);
+              captureException(err);
+            });
+          }
+          return;
+        }
 
-          scope.setTags({
-            graphql: rc.operation?.operation || "parse_err",
-            graphqlName:
-              (rc.operationName as any) || (rc.request.operationName as any),
-          });
+        for (const err of ctx.errors) {
+          withScope((scope) => {
+            scope.setTag("kind", ctx.operation?.operation ?? "unknown");
 
-          rc.errors.forEach((error) => {
-            if (error.path || error.name !== "GraphQLError") {
-              scope.setExtras({
-                path: error.path,
+            scope.setExtra("query", ctx.request.query);
+            scope.setExtra("variables", ctx.request.variables);
+
+            if (err.path) {
+              scope.setLevel("debug");
+              scope.addBreadcrumb({
+                category: "query-path",
+                message: err.path.join(" > "),
               });
-              Sentry.captureException(error);
-            } else {
-              scope.setExtras({});
-              Sentry.captureMessage(`GraphQLWrongQuery: ${error.message}`);
             }
+
+            const transactionId =
+              ctx.request?.http?.headers.get("x-transaction-id");
+            if (transactionId) {
+              scope.setTransactionName(transactionId);
+            }
+
+            captureException(err);
           });
-        });
+        }
       },
     };
   },

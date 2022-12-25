@@ -1,32 +1,30 @@
-import { createConnection, Connection, ConnectionOptions } from "typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
 
-import * as models from "@/models";
+import * as entities from "@/models";
 
-const commonConfig: ConnectionOptions = {
+const commonOptions: DataSourceOptions = {
   type: "postgres",
-  entities: Object.values(models),
+  entities: Object.values(entities),
   synchronize: true,
 };
 
-const connectionOptions: ConnectionOptions =
+const AppDataSourceOptions: DataSourceOptions =
   process.env.NODE_ENV === "production"
     ? {
         url: process.env.DATABASE_URL,
-        ...commonConfig,
+        ...commonOptions,
         extra: {
           max: 5,
         },
       }
     : {
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
-        username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_DATABASE,
-        ...commonConfig,
+        url: process.env.DATABASE_URL,
+        ...commonOptions,
       };
 
-const createDatabaseConnection = (): Promise<Connection> =>
-  createConnection(connectionOptions);
+const createDatabaseConnection = (): Promise<DataSource> => {
+  const AppDataSource = new DataSource(AppDataSourceOptions);
+  return AppDataSource.initialize();
+};
 
 export default createDatabaseConnection;

@@ -5,14 +5,14 @@ import {
   Int,
   Mutation,
   UseMiddleware,
-  Ctx
+  Ctx,
 } from "type-graphql";
 import { Issue } from "@/models";
 import {
   findEntityOrThrow,
   createEntity,
   updateEntity,
-  deleteEntity
+  deleteEntity,
 } from "@/utils/typeorm";
 import { IsAuth } from "@/middlewares/isAuth";
 import { ErrorInterceptor } from "@/middlewares/errorInterceptor";
@@ -21,9 +21,9 @@ import { GQLContext } from "../types/context";
 
 const calculateListPosition = async ({
   projectId,
-  status
+  status,
 }: Partial<Issue>): Promise<number> => {
-  const issues = await Issue.find({ projectId, status });
+  const issues = await Issue.find({ where: { projectId, status } });
 
   const listPositions = issues.map(({ listPosition }) => listPosition);
 
@@ -64,7 +64,7 @@ class IssueResolver {
     @Arg("issueId", () => Int) issueId: number
   ): Promise<Issue> {
     const issue = await findEntityOrThrow(Issue, issueId, {
-      relations: ["users", "comments", "comments.user"]
+      relations: ["users", "comments", "comments.user"],
     });
 
     return issue;
@@ -78,7 +78,7 @@ class IssueResolver {
     const listPosition = await calculateListPosition(issueInput);
     const issue = await createEntity(Issue, {
       ...issueInput,
-      listPosition
+      listPosition,
     });
     return issue;
   }

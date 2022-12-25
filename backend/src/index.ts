@@ -1,27 +1,34 @@
 require("module-alias").addAlias("@", __dirname);
 import "dotenv/config";
 import "reflect-metadata";
-import * as Sentry from "@sentry/node";
+import http from "http";
+import { init as SentryInit, Handlers as SentryHandlers } from "@sentry/node";
 import { RewriteFrames } from "@sentry/integrations";
 import Express from "express";
 import cors from "cors";
-import { ApolloServer } from "apollo-server-express";
+import { json } from "body-parser";
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { buildSchema } from "type-graphql";
-import { GraphQLSchema } from "graphql";
 import createDatabaseConnection from "@/database/createConnection";
 import { RESOLVERS } from "@/gql";
 import { apolloServerSentryPlugin } from "@/gql/plugins/sentry";
 
-Sentry.init({
-  environment: process.env.APP_ENV,
-  release: 'jira-clone-api',
-  dsn: process.env.SENTRY_DSN,
-  integrations: [
-    new RewriteFrames({
-      root: process.cwd(),
-    }) as any,
-  ],
-});
+const PORT = process.env.PORT || 5001;
+
+if (process.env.NODE_ENV === "production") {
+  SentryInit({
+    environment: process.env.APP_ENV,
+    release: "jira-clone-api",
+    dsn: process.env.SENTRY_DSN,
+    integrations: [
+      new RewriteFrames({
+        root: process.cwd(),
+      }),
+    ],
+  });
+}
 
 const establishDatabaseConnection = async (): Promise<void> => {
   try {
@@ -36,31 +43,40 @@ const initExpressGraphql = async () => {
     resolvers: RESOLVERS,
   }).catch((err) => console.log(err));
 
-  const apolloServer = new ApolloServer({
-    schema: schema as GraphQLSchema,
-    context: ({ req, res }: any) => ({ req, res }),
-    playground: true,
-    introspection: true,
-    plugins: [apolloServerSentryPlugin as any],
-  });
+  if (!schema) {
+    throw new Error("Could not build graphql schema");
+  }
 
   const app = Express();
+  const httpServer = http.createServer(app);
 
-  app.use(Sentry.Handlers.requestHandler());
+  const gqlServer = new ApolloServer({
+    schema,
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      apolloServerSentryPlugin,
+    ],
+    introspection: true,
+  });
 
-  app.use(cors());
-  app.use(Express.urlencoded({ extended: true }));
+  await gqlServer.start();
+
+  app.use(SentryHandlers.requestHandler());
+
+  app.use(
+    "/graphql",
+    cors(),
+    json(),
+    expressMiddleware(gqlServer),
+    SentryHandlers.errorHandler()
+  );
 
   app.get("/", (_, res) => {
     res.json({ server: "jira-clone-api" });
   });
 
-  apolloServer.applyMiddleware({ app });
-  app.use(Sentry.Handlers.errorHandler());
-  app.listen(process.env.PORT || 5000, () => {
-    console.log(
-      `server started on http://localhost:5000${apolloServer.graphqlPath}`
-    );
+  httpServer.listen({ port: PORT }, () => {
+    console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
   });
 };
 

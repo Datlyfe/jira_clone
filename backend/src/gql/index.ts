@@ -9,5 +9,5 @@ export const RESOLVERS = [
   UserResolver,
   CommentResolver,
   IssueResolver,
-  ProjectResolver
-];
+  ProjectResolver,
+] as const;

@@ -7,8 +7,8 @@ import { getStoredAuthToken } from '@/utils/authToken'
 const httpLink = createHttpLink({
   uri:
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:5000/graphql'
-      : 'https://jira-clone-api.herokuapp.com/graphql'
+      ? 'http://localhost:5001/graphql'
+      : process.env.API_BASE_UEL + '/graphql'
 })
 
 const authLink = setContext((_, { headers }) => {

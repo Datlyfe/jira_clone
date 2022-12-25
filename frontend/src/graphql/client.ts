@@ -8,7 +8,7 @@ const httpLink = createHttpLink({
   uri:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:5001/graphql'
-      : process.env.API_BASE_UEL + '/graphql'
+      : process.env.VUE_APP_BASE_API_URL + '/graphql'
 })
 
 const authLink = setContext((_, { headers }) => {

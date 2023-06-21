@@ -1,7 +1,7 @@
 [build]
-base = "frontend"
+base = "packages/web"
 publish = "dist/"
-command = "yarn build"
+command = "npm run build"
 
 [[redirects]]
 from = "/*"

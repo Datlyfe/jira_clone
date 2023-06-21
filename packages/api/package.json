@@ -1,0 +1,45 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Bouaggad Moez",
+    "email": "Mrbouaggadmoez@gmail.com"
+  },
+  "scripts": {
+    "dev": "ts-node-dev --respawn --files --transpile-only --no-notify --ignore-watch node_modules src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.3.0",
+    "@sentry/integrations": "7.56.0",
+    "@sentry/node": "7.56.0",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "16.3.1",
+    "express": "^4.18.2",
+    "graphql": "^16.7.0",
+    "jsonwebtoken": "9.0.0",
+    "module-alias": "2.2.3",
+    "node-cron": "3.0.2",
+    "pg": "8.11.0",
+    "reflect-metadata": "0.1.13",
+    "striptags": "3.2.0",
+    "ts-node-dev": "2.0.0",
+    "type-graphql": "2.0.0-beta.2",
+    "typeorm": "0.3.17"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.13",
+    "@types/express": "4.17.17",
+    "@types/graphql": "14.5.0",
+    "@types/jsonwebtoken": "9.0.2",
+    "@types/module-alias": "2.0.1",
+    "@types/node": "20.3.1",
+    "@types/node-cron": "3.0.7",
+    "class-validator": "^0.14.0",
+    "cross-env": "7.0.3",
+    "typescript": "5.1.3"
+  }
+}

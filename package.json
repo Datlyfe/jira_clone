@@ -1,15 +1,20 @@
 {
-  "name": "jira_clone",
+  "name": "jira-clone",
   "version": "1.0.0",
-  "author": "Bouaggad Moez",
+  "private": true,
+  "author": {
+    "name": "Moez Bouaggad",
+    "email": "mrbouaggadmoez@gmail.com",
+    "url": "https://github.com/datlyfe"
+  },
   "license": "MIT",
   "scripts": {
-    "install-deps": "cd backend && yarn install && cd ../frontend && yarn install",
-    "start:front": "cd frontend && yarn start",
-    "build:front": "cd frontend && yarn build",
-    "start:back": "cd backend && yarn start",
-    "build:back": "cd backend && yarn build",
-    "build": "yarn build:front && yarn build:back",
-    "start": "yarn start:front && yarn start:back"
+    "build": "turbo run build  --include-dependencies",
+    "dev": "turbo run dev --include-dependencies",
+    "preinstall": "only-allow pnpm"
+  },
+  "devDependencies": {
+    "only-allow": "^1.1.1",
+    "turbo": "^1.9.3"
   }
 }

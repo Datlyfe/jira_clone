@@ -1,0 +1,30 @@
+
+> web@1.0.0 build /Users/moezbouaggad/personal/jira_clone/packages/web
+> vue-tsc && vite build
+
+vite v4.3.9 building for production...
+transforming...
+
+warn - The `purge`/`content` options have changed in Tailwind CSS v3.0.
+warn - Update your configuration file to eliminate this warning.
+warn - https://tailwindcss.com/docs/upgrade-guide#configure-content-sources
+✓ 477 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                               1.31 kB │ gzip:   0.49 kB
+dist/assets/mountains-2f37b2ef.jpg           18.82 kB
+dist/assets/FullIIssueDetails-1164bd8e.css    0.04 kB │ gzip:   0.06 kB
+dist/assets/Settings-949cda7e.css             0.28 kB │ gzip:   0.17 kB
+dist/assets/Board-62c35ebb.css                0.56 kB │ gzip:   0.34 kB
+dist/assets/index-ce56cd0d.css               50.59 kB │ gzip:  10.09 kB
+dist/assets/FullIIssueDetails-48cb7d41.js     0.63 kB │ gzip:   0.42 kB
+dist/assets/Project-25b92695.js               1.09 kB │ gzip:   0.66 kB
+dist/assets/Settings-460060c3.js              4.94 kB │ gzip:   2.28 kB
+dist/assets/Board-39ca9999.js                51.21 kB │ gzip:  17.19 kB
+dist/assets/index-a4d3e490.js               629.49 kB │ gzip: 190.56 kB
+
+(!) Some chunks are larger than 500 kBs after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.52s

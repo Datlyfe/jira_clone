@@ -22,24 +22,22 @@ export default defineComponent({
   props: {
     placeholder: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     value: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     defaultValue: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     mode: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props, { emit }) {
-    console.log(props)
-
     const quill = ref<Quill>()
     const editorRef = ref<HTMLDivElement>()
     const initialValue = ref<string>(props.value ?? props.defaultValue ?? '')
@@ -47,7 +45,7 @@ export default defineComponent({
     const initQuill = () => {
       return new Quill(editorRef.value as HTMLDivElement, {
         placeholder: props.placeholder,
-        ...quillConfig
+        ...quillConfig,
       })
     }
 
@@ -100,9 +98,9 @@ export default defineComponent({
       editorRef,
       getHTMLValue,
       initialValue,
-      enableWriteMode
+      enableWriteMode,
     }
-  }
+  },
 })
 </script>
 

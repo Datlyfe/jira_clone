@@ -70,7 +70,7 @@ import pick from 'lodash.pick'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import {
   updateProject,
-  getProjectWithUsersAndIssues
+  getProjectWithUsersAndIssues,
 } from '@/graphql/queries/project'
 import { successToast, errorToast } from '@/plugins/toast'
 
@@ -93,16 +93,16 @@ export default defineComponent({
         isRequired(projectUpdateDTO.category)
     )
     const projectCategoryOptions = Object.values(ProjectCategory).map(
-      category => ({
+      (category) => ({
         value: category,
-        label: ProjectCategoryCopy[category]
+        label: ProjectCategoryCopy[category],
       })
     )
 
     const { mutate } = useMutation(updateProject)
     const { refetch } = useQuery(getProjectWithUsersAndIssues, {}, () => ({
       fetchPolicy: 'network-only',
-      enabled: queryEnabled.value
+      enabled: queryEnabled.value,
     }))
     const handleUpdateProject = async () => {
       try {
@@ -112,7 +112,6 @@ export default defineComponent({
         await mutate({ project: projectUpdateDTO } as any)
         const res = await refetch()
         if (res?.data) {
-          console.log(res.data)
           mutations.setProject(res.data.getProjectWithUsersAndIssues)
         }
         successToast('Changes have been saved successfully.').showToast()
@@ -128,9 +127,9 @@ export default defineComponent({
       projectUpdateDTO,
       handleUpdateProject,
       isValid,
-      projectCategoryOptions
+      projectCategoryOptions,
     }
-  }
+  },
 })
 </script>
 

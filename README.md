@@ -10,9 +10,8 @@
 - Install [postgreSQL](https://www.postgresql.org/) if you don't have it already and create a database ( there is also a docker compose file if you prefer using docker, just run `docker-compose up` inside the backend folder)
 - Create an empty `.env` file in `/backend`, copy `/backend/.env.example` contents into it, and fill in your database username and password.
 - `pnpm install`
-- `npm run start:back`
-- `npm run start:front` in another terminal tab
-- App should now be running on `http://localhost:8080/`
+- `npm run dev`
+- App should now be running on `http://localhost:5137/`
 
 ## Inspiration and Why? 🤷‍♀️
 

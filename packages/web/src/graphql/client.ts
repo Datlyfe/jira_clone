@@ -5,7 +5,7 @@ import { getStoredAuthToken } from '@/utils/authToken'
 const httpLink = new HttpLink({
   uri: import.meta.env.DEV
     ? 'http://localhost:5001/graphql'
-    : 'https://jira-clone-api.onrender.com',
+    : 'https://jira-clone-api.onrender.com/graphql',
 })
 
 const authLink = setContext((_, { headers }) => {

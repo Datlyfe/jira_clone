@@ -54,9 +54,9 @@ router.beforeEach(async (to, _, next) => {
         if (
           //@ts-ignore
           error?.message ===
-            'GraphQL error: Authentication token is invalid: User not found.' ||
+            'Authentication token is invalid: User not found.' ||
           //@ts-ignore
-          error?.message === 'GraphQL error: Authentication token is invalid.'
+          error?.message === 'Authentication token is invalid.'
         ) {
           await authenticate()
           next({ name: to.name || 'root' })
